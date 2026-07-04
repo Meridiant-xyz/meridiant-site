@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Meridiant — Isolated-Market Lending on Canton Network</title>
+<meta name="description" content="Meridiant is a Morpho-style isolated-market lending protocol purpose-built for Canton Network — native atomic settlement, per-market privacy, institutional-grade lending." />
+
+<meta property="og:title" content="Meridiant — Isolated-Market Lending on Canton Network" />
+<meta property="og:description" content="A Morpho-style isolated-market lending protocol purpose-built for Canton Network." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://meridiant.xyz" />
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="#top" class="brand">
+      <span class="brand-mark">M</span>
+      <span class="brand-name">Meridiant</span>
+    </a>
+    <div class="nav-links">
+      <a href="https://github.com/" class="nav-cta" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile">
+    <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero container">
+    <p class="eyebrow reveal">Building on Canton Network</p>
+    <h1 class="reveal">
+      Isolated-market lending,<br />
+      <span class="text-gradient">engineered for Canton.</span>
+    </h1>
+    <p class="hero-sub reveal">
+      Meridiant is a Morpho-style lending protocol where every market — one collateral, one loan
+      asset, one oracle — is fully isolated. Built on Canton, it gets two things no EVM lending
+      market can offer: native atomic settlement and per-market privacy.
+    </p>
+    <div class="hero-pills reveal">
+      <span class="pill">Position privacy</span>
+      <span class="pill">Atomic composition</span>
+      <span class="pill">No contention</span>
+      <span class="pill">Institutional-grade</span>
+    </div>
+  </section>
+
+  <section id="why" class="section container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Why Canton</p>
+      <h2>Privacy and atomicity aren't features. They're the architecture.</h2>
+      <p class="section-sub">
+        On a public chain, every position, every liquidation, every strategy is visible to
+        everyone. Canton's contract model makes privacy the default and settlement atomic —
+        so Meridiant can serve users that public-chain lending structurally cannot.
+      </p>
+    </div>
+
+    <div class="grid-cards">
+      <div class="card reveal">
+        <div class="card-icon">◑</div>
+        <h3>Position privacy</h3>
+        <p>
+          A borrower's collateral, debt, and health factor are visible only to the borrower,
+          the protocol, and the relevant asset issuers. Participants in one market aren't even
+          aware another market exists.
+        </p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">⬡</div>
+        <h3>Isolated markets</h3>
+        <p>
+          Each market — one collateral, one loan asset, one oracle, one LTV — is its own
+          contract instance. No shared pool, no contention bottleneck, no cross-market
+          contagion.
+        </p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">⇄</div>
+        <h3>Atomic composition</h3>
+        <p>
+          Liquidations, collateral swaps, and looped leverage settle whole-or-nothing as a
+          protocol primitive. No reentrancy guards, no half-settled states.
+        </p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">◈</div>
+        <h3>Selective disclosure</h3>
+        <p>
+          Where an auditor or regulator must see a position, they're added as an explicit
+          observer on that contract — a full audit trail without public exposure.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="waitlist" class="section container cta-section">
+    <div class="cta-box reveal">
+      <div class="coming-soon coming-soon-lg">
+        <span class="coming-soon-dot"></span>
+        Coming soon
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand footer-brand">
+      <span class="brand-mark">M</span>
+      <span class="brand-name">Meridiant</span>
+    </div>
+    <p class="footer-note">Isolated-market lending on Canton Network.</p>
+    <p class="footer-copy">© <span id="year"></span> Meridiant. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
