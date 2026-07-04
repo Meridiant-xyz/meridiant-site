@@ -1,134 +1,1042 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Meridiant — Isolated-Market Lending on Canton Network</title>
-<meta name="description" content="Meridiant is an isolated-market lending protocol purpose-built for Canton Network — native atomic settlement, per-market privacy, institutional-grade lending." />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meridiant — Isolated-market lending on Canton</title>
+<meta name="description" content="Isolated-market lending engineered for Canton Network. Position privacy by default, atomic composition, per-market risk isolation.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --bg: #0A0B0D;
+    --surface: #121418;
+    --surface-2: #1A1D22;
+    --line: #24272E;
+    --line-strong: #363A42;
+    --text: #F2F0EA;
+    --text-2: #8A8F98;
+    --text-3: #55595F;
+    --signal: #E8B84A;
+    --signal-dim: #8A6E2A;
+    --pos: #7EC488;
+    --neg: #D97070;
+    --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
 
-<meta property="og:title" content="Meridiant — Isolated-Market Lending on Canton Network" />
-<meta property="og:description" content="An isolated-market lending protocol purpose-built for Canton Network." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://meridiant.xyz" />
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
 
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-<link rel="stylesheet" href="styles.css" />
+  ::selection { background: var(--signal); color: var(--bg); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .micro {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+  }
+
+  /* ---------- Signature: the Meridian ---------- */
+  /* A fixed vertical hairline that runs down the viewport, with degree
+     marks anchored to each section. Current section lights amber. */
+  .meridian {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: calc(50% + 320px); /* right-of-center on the content grid */
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0,
+      var(--line) 8%,
+      var(--line) 92%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  .meridian::before,
+  .meridian::after {
+    content: "";
+    position: absolute;
+    left: -3px;
+    width: 7px;
+    height: 1px;
+    background: var(--line-strong);
+  }
+  .meridian::before { top: 8%; }
+  .meridian::after { bottom: 8%; }
+
+  .meridian-label {
+    position: fixed;
+    left: calc(50% + 328px);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    transition: color 240ms ease, transform 240ms ease;
+    pointer-events: none;
+    z-index: 1;
+    white-space: nowrap;
+  }
+  .meridian-label.active {
+    color: var(--signal);
+  }
+  .meridian-label.active::before {
+    content: "";
+    position: absolute;
+    left: -13px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--signal);
+    transform: translateY(-50%);
+    box-shadow: 0 0 12px var(--signal);
+  }
+
+  @media (max-width: 1100px) {
+    .meridian, .meridian-label { display: none; }
+  }
+
+  /* ---------- Nav ---------- */
+  nav.top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(10, 11, 13, 0.8);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.top .wrap {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .brand-mark {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .nav-links a {
+    font-size: 14px;
+    color: var(--text-2);
+    transition: color 150ms ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+  }
+  .btn-primary {
+    background: var(--signal);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: #F0C560; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--line-strong);
+  }
+  .btn-secondary:hover { border-color: var(--text-2); }
+
+  .btn-arrow {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  /* ---------- Section frame ---------- */
+  section {
+    position: relative;
+    border-top: 1px solid var(--line);
+  }
+  section:first-of-type { border-top: none; }
+  .section-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 40px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .section-index {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--signal);
+    letter-spacing: 0.08em;
+  }
+  .section-title {
+    font-size: 14px;
+    color: var(--text-2);
+    letter-spacing: -0.005em;
+    font-weight: 500;
+    text-align: right;
+    font-family: var(--mono);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 96px 0 128px;
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+  .eyebrow .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 10px var(--signal);
+  }
+  h1.headline {
+    font-size: clamp(40px, 5.8vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+    font-weight: 500;
+    margin: 0 0 28px;
+    max-width: 12ch;
+  }
+  h1.headline .accent {
+    color: var(--signal);
+    font-style: normal;
+  }
+  .sub {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--text-2);
+    max-width: 46ch;
+    margin: 0 0 40px;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 12px;
+  }
+  .hero-meta {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    max-width: 520px;
+  }
+  .hero-meta .k {
+    display: block;
+    margin-bottom: 6px;
+  }
+  .hero-meta .v {
+    font-family: var(--mono);
+    font-size: 15px;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Market card in hero ---------- */
+  .market-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .market-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+  }
+  .market-card-head .label {
+    color: var(--text-2);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .market-card-head .id {
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .market-card-head .live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--pos);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .market-card-head .live::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--pos);
+    box-shadow: 0 0 8px var(--pos);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .market-table {
+    padding: 8px 0;
+  }
+  .market-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 18px;
+    color: var(--text-2);
+  }
+  .market-row .v {
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .market-row.emphasis .v { color: var(--signal); }
+  .market-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 6px 18px;
+  }
+  .market-card-foot {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 18px;
+    border-top: 1px solid var(--line);
+    background: var(--surface-2);
+    color: var(--text-3);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .yield-curve {
+    padding: 20px 18px 8px;
+    border-top: 1px solid var(--line);
+  }
+  .yield-curve svg { width: 100%; height: 72px; display: block; }
+  .yield-curve-legend {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    color: var(--text-3);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- Principles section ---------- */
+  .principles {
+    padding: 80px 0 120px;
+  }
+  .principle {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 60px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .principle:last-child { border-bottom: none; }
+  .principle-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--signal);
+    letter-spacing: 0.08em;
+    padding-top: 8px;
+  }
+  .principle-title {
+    font-size: 24px;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.15;
+  }
+  .principle-body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-2);
+    margin: 0;
+    max-width: 52ch;
+  }
+  .principle-body strong { color: var(--text); font-weight: 500; }
+
+  /* ---------- Anatomy diagram ---------- */
+  .anatomy {
+    padding: 96px 0 128px;
+  }
+  .anatomy-intro {
+    max-width: 60ch;
+    margin: 0 0 64px;
+    font-size: 20px;
+    line-height: 1.5;
+    color: var(--text);
+    letter-spacing: -0.005em;
+  }
+  .anatomy-intro span { color: var(--text-2); }
+  .anatomy-diagram {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 48px;
+    position: relative;
+  }
+  .anatomy-svg { width: 100%; height: auto; display: block; max-height: 480px; }
+  .anatomy-legend {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .legend-item .k {
+    display: block;
+    margin-bottom: 8px;
+  }
+  .legend-item .v {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 4px;
+  }
+  .legend-item .n {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  /* ---------- Canton pillars ---------- */
+  .canton {
+    padding: 96px 0 128px;
+  }
+  .canton-intro {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: start;
+  }
+  .canton-intro h2 {
+    font-size: 44px;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    line-height: 1.05;
+    margin: 0;
+  }
+  .canton-intro h2 .accent { color: var(--signal); font-style: normal; }
+  .canton-intro p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text-2);
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .pillar {
+    background: var(--surface);
+    padding: 40px;
+  }
+  .pillar-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--signal);
+    letter-spacing: 0.12em;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .pillar-title {
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+    margin: 0 0 12px;
+  }
+  .pillar-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-2);
+    margin: 0;
+  }
+  .pillar-stat {
+    font-family: var(--mono);
+    font-size: 32px;
+    letter-spacing: -0.015em;
+    color: var(--text);
+    margin: 16px 0 8px;
+    display: block;
+    font-variant-numeric: tabular-nums;
+  }
+  .pillar-stat .unit { color: var(--text-3); font-size: 16px; margin-left: 4px; }
+
+  /* ---------- CTA strip ---------- */
+  .cta-strip {
+    padding: 96px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+  }
+  .cta-strip .wrap {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: center;
+  }
+  .cta-strip h3 {
+    font-size: 40px;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    line-height: 1.05;
+    margin: 0;
+    max-width: 22ch;
+  }
+  .cta-strip .actions { display: flex; gap: 12px; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 80px 0 48px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr repeat(4, 1fr);
+    gap: 48px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer-brand p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-2);
+    margin: 20px 0 0;
+    max-width: 34ch;
+  }
+  .footer-col h5 {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    font-weight: 500;
+    margin: 0 0 20px;
+  }
+  .footer-col a {
+    display: block;
+    font-size: 13px;
+    color: var(--text-2);
+    margin-bottom: 12px;
+    transition: color 150ms ease;
+  }
+  .footer-col a:hover { color: var(--text); }
+  .footer-meta {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 32px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    text-transform: uppercase;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .wrap { padding: 0 20px; }
+    .hero { padding: 64px 0 80px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+    .hero-meta { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .principle { grid-template-columns: 40px 1fr; gap: 24px; padding: 32px 0; }
+    .principle-body { grid-column: 1 / -1; margin-top: 12px; }
+    .canton-intro { grid-template-columns: 1fr; gap: 32px; }
+    .canton-intro h2 { font-size: 32px; }
+    .pillars { grid-template-columns: 1fr; }
+    .anatomy-legend { grid-template-columns: 1fr 1fr; }
+    .anatomy-diagram { padding: 24px; }
+    .cta-strip .wrap { grid-template-columns: 1fr; }
+    .cta-strip h3 { font-size: 28px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .section-head { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+    .section-title { text-align: left; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 520px) {
+    .hero-meta { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- Focus ---------- */
+  a:focus-visible, button:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+</style>
 </head>
 <body>
 
-<div class="bg-grid" aria-hidden="true"></div>
-<div class="bg-glow" aria-hidden="true"></div>
+<!-- Meridian signature -->
+<div class="meridian" aria-hidden="true"></div>
+<span class="meridian-label" data-mark="0" style="top: 96px;">0° · GENESIS</span>
+<span class="meridian-label" data-mark="1" style="top: 30vh;">15° · PRINCIPLES</span>
+<span class="meridian-label" data-mark="2" style="top: 50vh;">45° · ANATOMY</span>
+<span class="meridian-label" data-mark="3" style="top: 72vh;">75° · CANTON</span>
+<span class="meridian-label" data-mark="4" style="bottom: 96px;">90° · TERMINUS</span>
 
-<header class="site-header">
-  <nav class="nav container">
-    <a href="#top" class="brand">
-      <span class="brand-mark">M</span>
-      <span class="brand-name">Meridiant</span>
+<!-- ---------- Nav ---------- -->
+<nav class="top" aria-label="Primary">
+  <div class="wrap">
+    <a href="#" class="brand" aria-label="Meridiant home">
+      <svg class="brand-mark" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="11" cy="11" r="9.5"/>
+        <line x1="11" y1="1.5" x2="11" y2="20.5"/>
+        <path d="M2 11 A9.5 5 0 0 0 20 11"/>
+        <path d="M2 11 A9.5 5 0 0 1 20 11"/>
+      </svg>
+      Meridiant
     </a>
-    <div class="nav-links">
-      <a href="https://github.com/" class="nav-cta" target="_blank" rel="noopener">GitHub</a>
+    <div class="nav-links" role="navigation">
+      <a href="#principles">Principles</a>
+      <a href="#anatomy">Markets</a>
+      <a href="#canton">Canton</a>
+      <a href="#" aria-label="Documentation">Docs</a>
+      <a href="#" aria-label="GitHub">GitHub</a>
     </div>
-    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-  <div class="nav-mobile" id="navMobile">
-    <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+    <a href="#" class="btn btn-secondary">
+      Whitepaper
+      <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+    </a>
   </div>
-</header>
+</nav>
 
-<main id="top">
-
-  <section class="hero container">
-    <p class="eyebrow reveal">Building on Canton Network</p>
-    <h1 class="reveal">
-      Isolated-market lending,<br />
-      <span class="text-gradient">engineered for Canton.</span>
-    </h1>
-    <p class="hero-sub reveal">
-      Meridiant is an isolated-market lending protocol where every market — one collateral, one loan
-      asset, one oracle — is fully isolated. Built on Canton, it gets two things no EVM lending
-      market can offer: native atomic settlement and per-market privacy.
-    </p>
-    <div class="hero-pills reveal">
-      <span class="pill">Position privacy</span>
-      <span class="pill">Atomic composition</span>
-      <span class="pill">No contention</span>
-      <span class="pill">Institutional-grade</span>
-    </div>
-  </section>
-
-  <section id="why" class="section container">
-    <div class="section-head reveal">
-      <p class="eyebrow">Why Canton</p>
-      <h2>Privacy and atomicity aren't features. They're the architecture.</h2>
-      <p class="section-sub">
-        On a public chain, every position, every liquidation, every strategy is visible to
-        everyone. Canton's contract model makes privacy the default and settlement atomic —
-        so Meridiant can serve users that public-chain lending structurally cannot.
-      </p>
-    </div>
-
-    <div class="grid-cards">
-      <div class="card reveal">
-        <div class="card-icon">◑</div>
-        <h3>Position privacy</h3>
-        <p>
-          A borrower's collateral, debt, and health factor are visible only to the borrower,
-          the protocol, and the relevant asset issuers. Participants in one market aren't even
-          aware another market exists.
-        </p>
+<!-- ---------- Hero ---------- -->
+<section class="hero" id="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Building on Canton Network</div>
+        <h1 class="headline">Isolated-market lending, engineered for <em class="accent">Canton</em>.</h1>
+        <p class="sub">Every market is a contract of its own — one collateral, one loan asset, one oracle. Native atomic settlement. Position privacy by default.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn btn-primary">
+            Read the whitepaper
+            <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+          </a>
+          <a href="#" class="btn btn-secondary">
+            View on GitHub
+          </a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <span class="micro k">Ledger</span>
+            <span class="v">Canton</span>
+          </div>
+          <div>
+            <span class="micro k">Finality</span>
+            <span class="v">&lt; 1.0 s</span>
+          </div>
+          <div>
+            <span class="micro k">Privacy</span>
+            <span class="v">Native</span>
+          </div>
+        </div>
       </div>
-      <div class="card reveal">
-        <div class="card-icon">⬡</div>
-        <h3>Isolated markets</h3>
-        <p>
-          Each market — one collateral, one loan asset, one oracle, one LTV — is its own
-          contract instance. No shared pool, no contention bottleneck, no cross-market
-          contagion.
-        </p>
-      </div>
-      <div class="card reveal">
-        <div class="card-icon">⇄</div>
-        <h3>Atomic composition</h3>
-        <p>
-          Liquidations, collateral swaps, and looped leverage settle whole-or-nothing as a
-          protocol primitive. No reentrancy guards, no half-settled states.
-        </p>
-      </div>
-      <div class="card reveal">
-        <div class="card-icon">◈</div>
-        <h3>Selective disclosure</h3>
-        <p>
-          Where an auditor or regulator must see a position, they're added as an explicit
-          observer on that contract — a full audit trail without public exposure.
-        </p>
+
+      <!-- Market card -->
+      <aside class="market-card" aria-label="Example isolated market">
+        <div class="market-card-head">
+          <span class="label">Market</span>
+          <span class="id">0x4a3f…c8f2</span>
+          <span class="live">Live</span>
+        </div>
+        <div class="market-table">
+          <div class="market-row"><span>Collateral</span><span class="v">cBTC</span></div>
+          <div class="market-row"><span>Loan asset</span><span class="v">USDC.c</span></div>
+          <div class="market-row"><span>Oracle</span><span class="v">Canton Registry</span></div>
+          <div class="market-divider"></div>
+          <div class="market-row"><span>LTV</span><span class="v">72.50 %</span></div>
+          <div class="market-row"><span>Liq. threshold</span><span class="v">77.00 %</span></div>
+          <div class="market-row"><span>Kink</span><span class="v">85.00 %</span></div>
+          <div class="market-divider"></div>
+          <div class="market-row"><span>Utilization</span><span class="v">61.42 %</span></div>
+          <div class="market-row emphasis"><span>Supply APY</span><span class="v">5.82 %</span></div>
+          <div class="market-row emphasis"><span>Borrow APY</span><span class="v">9.14 %</span></div>
+        </div>
+        <div class="yield-curve">
+          <svg viewBox="0 0 300 72" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="curveFill" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#E8B84A" stop-opacity="0.18"/>
+                <stop offset="1" stop-color="#E8B84A" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- grid -->
+            <line x1="0" y1="24" x2="300" y2="24" stroke="#24272E" stroke-width="0.5"/>
+            <line x1="0" y1="48" x2="300" y2="48" stroke="#24272E" stroke-width="0.5"/>
+            <line x1="255" y1="0" x2="255" y2="72" stroke="#363A42" stroke-width="0.5" stroke-dasharray="2 3"/>
+            <!-- IR curve: flat-slope1-steep after kink -->
+            <path d="M0 60 L120 52 L180 44 L255 30 L300 4" stroke="#E8B84A" stroke-width="1.5" fill="none"/>
+            <path d="M0 60 L120 52 L180 44 L255 30 L300 4 L300 72 L0 72 Z" fill="url(#curveFill)"/>
+            <!-- kink marker -->
+            <circle cx="255" cy="30" r="2.5" fill="#E8B84A"/>
+          </svg>
+          <div class="yield-curve-legend">
+            <span>0% util.</span>
+            <span>Borrow rate curve</span>
+            <span>100% util.</span>
+          </div>
+        </div>
+        <div class="market-card-foot">
+          <span>Illustrative parameters</span>
+          <span>v0.1</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Principles ---------- -->
+<section class="principles" id="principles">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-index">§ 01</span>
+      <span class="section-title">Design principles</span>
+    </div>
+
+    <article class="principle">
+      <span class="principle-num">01</span>
+      <h3 class="principle-title">Position privacy</h3>
+      <p class="principle-body">Positions are visible only to the borrower and authorized observers. Canton's <strong>selective-disclosure model</strong> enforces this at the protocol layer, not by convention. Meridiant never publishes borrower identity or position size to the network.</p>
+    </article>
+
+    <article class="principle">
+      <span class="principle-num">02</span>
+      <h3 class="principle-title">Isolated markets</h3>
+      <p class="principle-body">Each market carries its own collateral, loan asset, oracle, and interest-rate curve. A bad-debt event in one market <strong>cannot cascade into another</strong>. No pooled risk. No cross-collateralization surprises.</p>
+    </article>
+
+    <article class="principle">
+      <span class="principle-num">03</span>
+      <h3 class="principle-title">Atomic composition</h3>
+      <p class="principle-body">Borrow, swap, and deploy in a single Canton transaction. If any leg fails, the entire transaction reverts — <strong>across Canton participants and applications</strong>, not just within Meridiant.</p>
+    </article>
+
+    <article class="principle">
+      <span class="principle-num">04</span>
+      <h3 class="principle-title">Selective disclosure</h3>
+      <p class="principle-body">Auditors, regulators, and counterparties see exactly what they need to see — and nothing else. Observer sets are configured <strong>at market issuance</strong> and cryptographically enforced.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ---------- Anatomy ---------- -->
+<section class="anatomy" id="anatomy">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-index">§ 02</span>
+      <span class="section-title">Market anatomy</span>
+    </div>
+
+    <p class="anatomy-intro" style="margin-top: 64px;">A Meridiant market is a Daml contract. <span>Four parameters define it — collateral, loan asset, oracle, and interest model. Everything else is derived. Everything else is isolated.</span></p>
+
+    <div class="anatomy-diagram">
+      <svg class="anatomy-svg" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" aria-labelledby="anatomy-title">
+        <title id="anatomy-title">Anatomy of an isolated market</title>
+        <defs>
+          <marker id="tick" markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto">
+            <circle cx="2" cy="2" r="1.5" fill="#8A8F98"/>
+          </marker>
+        </defs>
+
+        <!-- Center: market -->
+        <g>
+          <rect x="360" y="170" width="180" height="80" fill="#0A0B0D" stroke="#E8B84A" stroke-width="1"/>
+          <text x="450" y="200" text-anchor="middle" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">MARKET</text>
+          <text x="450" y="222" text-anchor="middle" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="13">0x4a3f…c8f2</text>
+          <text x="450" y="238" text-anchor="middle" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">v0.1 · Daml</text>
+        </g>
+
+        <!-- Four spokes -->
+        <!-- Top left: Collateral -->
+        <g>
+          <line x1="360" y1="200" x2="200" y2="90" stroke="#363A42" stroke-width="0.75" stroke-dasharray="0" marker-end="url(#tick)"/>
+          <rect x="80" y="60" width="180" height="72" fill="#121418" stroke="#24272E"/>
+          <text x="96" y="82" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">COLLATERAL</text>
+          <text x="96" y="104" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="14">cBTC</text>
+          <text x="96" y="121" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">Canton-native BTC</text>
+        </g>
+
+        <!-- Top right: Loan asset -->
+        <g>
+          <line x1="540" y1="200" x2="700" y2="90" stroke="#363A42" stroke-width="0.75" marker-end="url(#tick)"/>
+          <rect x="640" y="60" width="180" height="72" fill="#121418" stroke="#24272E"/>
+          <text x="656" y="82" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">LOAN ASSET</text>
+          <text x="656" y="104" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="14">USDC.c</text>
+          <text x="656" y="121" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">Circle · CCTP</text>
+        </g>
+
+        <!-- Bottom left: Oracle -->
+        <g>
+          <line x1="360" y1="220" x2="200" y2="330" stroke="#363A42" stroke-width="0.75" marker-end="url(#tick)"/>
+          <rect x="80" y="288" width="180" height="72" fill="#121418" stroke="#24272E"/>
+          <text x="96" y="310" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">ORACLE</text>
+          <text x="96" y="332" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="14">Canton Registry</text>
+          <text x="96" y="349" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">Sub-second updates</text>
+        </g>
+
+        <!-- Bottom right: Interest model -->
+        <g>
+          <line x1="540" y1="220" x2="700" y2="330" stroke="#363A42" stroke-width="0.75" marker-end="url(#tick)"/>
+          <rect x="640" y="288" width="180" height="72" fill="#121418" stroke="#24272E"/>
+          <text x="656" y="310" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">INTEREST MODEL</text>
+          <text x="656" y="332" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="14">Two-slope · 85%</text>
+          <text x="656" y="349" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">Kink at utilization</text>
+        </g>
+
+        <!-- Observer band underneath -->
+        <line x1="80" y1="400" x2="820" y2="400" stroke="#24272E" stroke-width="0.5"/>
+        <text x="80" y="392" fill="#55595F" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">OBSERVERS</text>
+        <text x="820" y="392" text-anchor="end" fill="#55595F" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">SELECTIVE DISCLOSURE</text>
+
+        <!-- Meridian mark on the market box -->
+        <line x1="450" y1="170" x2="450" y2="250" stroke="#E8B84A" stroke-width="0.5" stroke-dasharray="1 2" opacity="0.5"/>
+      </svg>
+
+      <div class="anatomy-legend">
+        <div class="legend-item">
+          <span class="micro k">Collateral</span>
+          <span class="v">cBTC</span>
+          <span class="n">The asset a borrower locks. Never rehypothecated across markets.</span>
+        </div>
+        <div class="legend-item">
+          <span class="micro k">Loan asset</span>
+          <span class="v">USDC.c</span>
+          <span class="n">The asset the market lends. Suppliers earn yield in this asset only.</span>
+        </div>
+        <div class="legend-item">
+          <span class="micro k">Oracle</span>
+          <span class="v">Canton Registry</span>
+          <span class="n">Priced by a designated Canton participant. Signed, timestamped, per-market.</span>
+        </div>
+        <div class="legend-item">
+          <span class="micro k">Interest model</span>
+          <span class="v">Two-slope</span>
+          <span class="n">Piecewise-linear rate curve with a configurable kink at target utilization.</span>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="waitlist" class="section container cta-section">
-    <div class="cta-box reveal">
-      <div class="coming-soon coming-soon-lg">
-        <span class="coming-soon-dot"></span>
-        Coming soon
+<!-- ---------- Canton ---------- -->
+<section class="canton" id="canton">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-index">§ 03</span>
+      <span class="section-title">Why Canton</span>
+    </div>
+
+    <div class="canton-intro" style="margin-top: 64px;">
+      <h2>Credit rails, not <em class="accent">a casino floor</em>.</h2>
+      <p>Canton is the settlement layer for over $6 trillion in tokenized assets and $280 billion in daily repo. It ships privacy, atomicity, and sub-second finality out of the box. Meridiant is designed to inherit all three.</p>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-num">§ 03·A</span>
+        <h3 class="pillar-title">Sub-second finality</h3>
+        <span class="pillar-stat">&lt; 1<span class="unit">s</span></span>
+        <p class="pillar-body">Canton commits transactions in under a second — the latency profile institutional credit desks expect from tri-party repo settlement, not the multi-block finality of general-purpose L1s.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">§ 03·B</span>
+        <h3 class="pillar-title">Institutional participants</h3>
+        <span class="pillar-stat">45+<span class="unit"> SVs</span></span>
+        <p class="pillar-body">DTCC, Goldman Sachs, JPMorgan Kinexys, Visa, Tradeweb, Cumberland, and dozens more. Markets can require KYB'd counterparties by default — a first-class primitive, not a bolt-on.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">§ 03·C</span>
+        <h3 class="pillar-title">Native privacy</h3>
+        <span class="pillar-stat">Need-to-know</span>
+        <p class="pillar-body">Data is replicated only to parties permissioned to see it. Position sizes, collateral, and rates are not public state. Regulators see what they need; competitors see nothing.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">§ 03·D</span>
+        <h3 class="pillar-title">Atomic across apps</h3>
+        <span class="pillar-stat">Global Sync</span>
+        <p class="pillar-body">Canton's Global Synchronizer allows atomic composition across independent applications. Repo desks, DEXes, and Meridiant markets settle in a single transaction — or none of them do.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-</main>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <div class="brand footer-brand">
-      <span class="brand-mark">M</span>
-      <span class="brand-name">Meridiant</span>
+<!-- ---------- CTA strip ---------- -->
+<section class="cta-strip">
+  <div class="wrap">
+    <h3>Read the technical whitepaper for the full protocol specification.</h3>
+    <div class="actions">
+      <a href="#" class="btn btn-primary">
+        Whitepaper
+        <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+      </a>
+      <a href="#" class="btn btn-secondary">GitHub</a>
     </div>
-    <p class="footer-note">Isolated-market lending on Canton Network.</p>
-    <p class="footer-copy">© <span id="year"></span> Meridiant. All rights reserved.</p>
+  </div>
+</section>
+
+<!-- ---------- Footer ---------- -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="brand" aria-label="Meridiant home">
+          <svg class="brand-mark" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <circle cx="11" cy="11" r="9.5"/>
+            <line x1="11" y1="1.5" x2="11" y2="20.5"/>
+            <path d="M2 11 A9.5 5 0 0 0 20 11"/>
+            <path d="M2 11 A9.5 5 0 0 1 20 11"/>
+          </svg>
+          Meridiant
+        </a>
+        <p>Isolated-market lending engineered for Canton Network. Position privacy by default, atomic composition, per-market risk isolation.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="#">Markets</a>
+        <a href="#">Documentation</a>
+        <a href="#">Whitepaper</a>
+        <a href="#">Audits</a>
+      </div>
+      <div class="footer-col">
+        <h5>Network</h5>
+        <a href="#">Canton Network</a>
+        <a href="#">Global Synchronizer</a>
+        <a href="#">Canton Coin</a>
+      </div>
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+        <a href="#">Blog</a>
+        <a href="#">Brand</a>
+      </div>
+      <div class="footer-col">
+        <h5>Legal</h5>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Disclosures</a>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>Meridiant · Canton Participant ID · Pending</span>
+      <span>© 2026 · v0.1</span>
+    </div>
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script>
+  // Meridian labels: highlight the section closest to viewport center.
+  (function() {
+    const labels = document.querySelectorAll('.meridian-label');
+    const sections = document.querySelectorAll('section');
+    if (!('IntersectionObserver' in window)) return;
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const idx = Array.from(sections).indexOf(e.target);
+        labels.forEach(l => l.classList.remove('active'));
+        const target = labels[idx];
+        if (target) target.classList.add('active');
+      });
+    }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+
+    sections.forEach(s => io.observe(s));
+  })();
+</script>
+
 </body>
 </html>
