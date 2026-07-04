@@ -5,12 +5,19 @@ All CSS and JS live inline in `index.html`.
 
 ```
 meridiant-site/
-├── index.html     # everything: markup, styles, scroll-tracking script
+├── index.html     # everything: markup, styles, scroll-tracking script,
+│                  # and the whitepaper request modal
 ├── assets/
 │   └── favicon.svg
 ├── CNAME          # custom domain for GitHub Pages (meridiant.xyz) — currently removed, see below
 └── .nojekyll      # tells GitHub Pages to skip Jekyll processing
 ```
+
+The page includes a modal (triggered by any "Whitepaper" button in the nav, hero, CTA
+strip, or footer) that collects an email address. **It's front-end only right now** — there's
+no backend wired up, so submissions aren't actually stored or sent anywhere. Hook it up to a
+form service (Formspree, Mailchimp, ConvertKit, etc.) or a small serverless function before
+relying on it to capture real signups.
 
 ## Preview locally
 
@@ -28,6 +35,15 @@ Pages enabled (**Settings → Pages → Source: Deploy from a branch → `main` 
 to `main` redeploys automatically within a minute or two, at:
 
 **`https://meridiant-xyz.github.io/meridiant-site/`**
+
+Occasionally the "Deploy to GitHub Pages" step fails transiently even though the build itself
+succeeded (check **Settings → Pages** or the **Actions** tab for a red ✗ if the live site looks
+stale after a push). If that happens, just push an empty commit to retrigger it:
+
+```bash
+git commit --allow-empty -m "Retrigger Pages deployment"
+git push
+```
 
 ## Connecting meridiant.xyz
 
