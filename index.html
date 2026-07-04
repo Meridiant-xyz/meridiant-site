@@ -20,8 +20,8 @@
     --text: #F2F0EA;
     --text-2: #8A8F98;
     --text-3: #55595F;
-    --signal: #4EA1FF;
-    --signal-dim: #2A5A8A;
+    --signal: #A8B454;
+    --signal-dim: #5A6B2A;
     --pos: #7EC488;
     --neg: #D97070;
     --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -65,7 +65,7 @@
 
   /* ---------- Signature: the Meridian ---------- */
   /* A fixed vertical hairline that runs down the viewport, with degree
-     marks anchored to each section. Current section lights blue. */
+     marks anchored to each section. Current section lights olive. */
   .meridian {
     position: fixed;
     top: 0;
@@ -197,7 +197,7 @@
     background: var(--signal);
     color: var(--bg);
   }
-  .btn-primary:hover { background: #6FB6FF; }
+  .btn-primary:hover { background: #C2CE7A; }
   .btn-secondary {
     background: transparent;
     color: var(--text);
@@ -302,14 +302,14 @@
     padding: 0 16px;
     border-radius: 4px;
     border: 1px solid var(--signal-dim);
-    background: rgba(78, 161, 255, 0.1);
+    background: rgba(168, 180, 84, 0.1);
     font-family: var(--mono);
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--signal);
-    box-shadow: 0 0 24px rgba(78, 161, 255, 0.15);
+    box-shadow: 0 0 24px rgba(168, 180, 84, 0.15);
   }
   .coming-soon .dot {
     width: 5px;
@@ -785,8 +785,8 @@
           <svg viewBox="0 0 300 72" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="curveFill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#4EA1FF" stop-opacity="0.18"/>
-                <stop offset="1" stop-color="#4EA1FF" stop-opacity="0"/>
+                <stop offset="0" stop-color="#A8B454" stop-opacity="0.18"/>
+                <stop offset="1" stop-color="#A8B454" stop-opacity="0"/>
               </linearGradient>
             </defs>
             <!-- grid -->
@@ -794,10 +794,10 @@
             <line x1="0" y1="48" x2="300" y2="48" stroke="#24272E" stroke-width="0.5"/>
             <line x1="255" y1="0" x2="255" y2="72" stroke="#363A42" stroke-width="0.5" stroke-dasharray="2 3"/>
             <!-- IR curve: flat-slope1-steep after kink -->
-            <path d="M0 60 L120 52 L180 44 L255 30 L300 4" stroke="#4EA1FF" stroke-width="1.5" fill="none"/>
+            <path d="M0 60 L120 52 L180 44 L255 30 L300 4" stroke="#A8B454" stroke-width="1.5" fill="none"/>
             <path d="M0 60 L120 52 L180 44 L255 30 L300 4 L300 72 L0 72 Z" fill="url(#curveFill)"/>
             <!-- kink marker -->
-            <circle cx="255" cy="30" r="2.5" fill="#4EA1FF"/>
+            <circle cx="255" cy="30" r="2.5" fill="#A8B454"/>
           </svg>
           <div class="yield-curve-legend">
             <span>0% util.</span>
@@ -869,7 +869,7 @@
 
         <!-- Center: market -->
         <g>
-          <rect x="360" y="170" width="180" height="80" fill="#0A0B0D" stroke="#4EA1FF" stroke-width="1"/>
+          <rect x="360" y="170" width="180" height="80" fill="#0A0B0D" stroke="#A8B454" stroke-width="1"/>
           <text x="450" y="200" text-anchor="middle" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">MARKET</text>
           <text x="450" y="222" text-anchor="middle" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="13">0x4a3f…c8f2</text>
           <text x="450" y="238" text-anchor="middle" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">v0.1 · Daml</text>
@@ -918,7 +918,7 @@
         <text x="820" y="392" text-anchor="end" fill="#55595F" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">SELECTIVE DISCLOSURE</text>
 
         <!-- Meridian mark on the market box -->
-        <line x1="450" y1="170" x2="450" y2="250" stroke="#4EA1FF" stroke-width="0.5" stroke-dasharray="1 2" opacity="0.5"/>
+        <line x1="450" y1="170" x2="450" y2="250" stroke="#A8B454" stroke-width="0.5" stroke-dasharray="1 2" opacity="0.5"/>
       </svg>
 
       <div class="anatomy-legend">
@@ -1048,7 +1048,7 @@
     </div>
     <div class="footer-meta">
       <span>Meridiant · Canton Participant ID · Pending</span>
-      <span>© 2026 · v0.1</span>
+      <span>© 2026 Meridiant · All rights reserved · v0.1</span>
     </div>
   </div>
 </footer>
