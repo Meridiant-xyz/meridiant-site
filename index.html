@@ -20,8 +20,8 @@
     --text: #F2F0EA;
     --text-2: #8A8F98;
     --text-3: #55595F;
-    --signal: #E8B84A;
-    --signal-dim: #8A6E2A;
+    --signal: #4EA1FF;
+    --signal-dim: #2A5A8A;
     --pos: #7EC488;
     --neg: #D97070;
     --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -65,12 +65,12 @@
 
   /* ---------- Signature: the Meridian ---------- */
   /* A fixed vertical hairline that runs down the viewport, with degree
-     marks anchored to each section. Current section lights amber. */
+     marks anchored to each section. Current section lights blue. */
   .meridian {
     position: fixed;
     top: 0;
     bottom: 0;
-    left: calc(50% + 320px); /* right-of-center on the content grid */
+    left: 48px; /* fixed left gutter, clear of the content grid */
     width: 1px;
     background: linear-gradient(
       to bottom,
@@ -96,15 +96,24 @@
 
   .meridian-label {
     position: fixed;
-    left: calc(50% + 328px);
+    left: 66px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
     font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
     color: var(--text-3);
-    transition: color 240ms ease, transform 240ms ease;
+    transition: color 240ms ease;
     pointer-events: none;
     z-index: 1;
     white-space: nowrap;
+  }
+  .meridian-label .deg {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .meridian-label .name {
+    font-size: 9px;
+    letter-spacing: 0.12em;
   }
   .meridian-label.active {
     color: var(--signal);
@@ -112,14 +121,17 @@
   .meridian-label.active::before {
     content: "";
     position: absolute;
-    left: -13px;
-    top: 50%;
+    left: -18px;
+    top: 6px;
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background: var(--signal);
-    transform: translateY(-50%);
     box-shadow: 0 0 12px var(--signal);
+  }
+
+  @media (min-width: 1101px) {
+    .wrap { padding-left: 152px; }
   }
 
   @media (max-width: 1100px) {
@@ -185,7 +197,7 @@
     background: var(--signal);
     color: var(--bg);
   }
-  .btn-primary:hover { background: #F0C560; }
+  .btn-primary:hover { background: #6FB6FF; }
   .btn-secondary {
     background: transparent;
     color: var(--text);
@@ -279,7 +291,33 @@
   }
   .hero-ctas {
     display: flex;
-    gap: 12px;
+    align-items: center;
+    gap: 16px;
+  }
+  .coming-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 4px;
+    border: 1px solid var(--signal-dim);
+    background: rgba(78, 161, 255, 0.1);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--signal);
+    box-shadow: 0 0 24px rgba(78, 161, 255, 0.15);
+  }
+  .coming-soon .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 10px var(--signal);
+    animation: pulse 2s ease-in-out infinite;
   }
   .hero-meta {
     margin-top: 56px;
@@ -660,11 +698,11 @@
 
 <!-- Meridian signature -->
 <div class="meridian" aria-hidden="true"></div>
-<span class="meridian-label" data-mark="0" style="top: 96px;">0° · GENESIS</span>
-<span class="meridian-label" data-mark="1" style="top: 30vh;">15° · PRINCIPLES</span>
-<span class="meridian-label" data-mark="2" style="top: 50vh;">45° · ANATOMY</span>
-<span class="meridian-label" data-mark="3" style="top: 72vh;">75° · CANTON</span>
-<span class="meridian-label" data-mark="4" style="bottom: 96px;">90° · TERMINUS</span>
+<span class="meridian-label" data-mark="0" style="top: 96px;"><span class="deg">0°</span><span class="name">GENESIS</span></span>
+<span class="meridian-label" data-mark="1" style="top: 30vh;"><span class="deg">15°</span><span class="name">PRINCIPLES</span></span>
+<span class="meridian-label" data-mark="2" style="top: 50vh;"><span class="deg">45°</span><span class="name">ANATOMY</span></span>
+<span class="meridian-label" data-mark="3" style="top: 72vh;"><span class="deg">75°</span><span class="name">CANTON</span></span>
+<span class="meridian-label" data-mark="4" style="bottom: 96px;"><span class="deg">90°</span><span class="name">TERMINUS</span></span>
 
 <!-- ---------- Nav ---------- -->
 <nav class="top" aria-label="Primary">
@@ -705,9 +743,7 @@
             Read the whitepaper
             <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
           </a>
-          <a href="#" class="btn btn-secondary">
-            View on GitHub
-          </a>
+          <span class="coming-soon"><span class="dot"></span>Coming soon</span>
         </div>
         <div class="hero-meta">
           <div>
@@ -749,8 +785,8 @@
           <svg viewBox="0 0 300 72" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="curveFill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#E8B84A" stop-opacity="0.18"/>
-                <stop offset="1" stop-color="#E8B84A" stop-opacity="0"/>
+                <stop offset="0" stop-color="#4EA1FF" stop-opacity="0.18"/>
+                <stop offset="1" stop-color="#4EA1FF" stop-opacity="0"/>
               </linearGradient>
             </defs>
             <!-- grid -->
@@ -758,10 +794,10 @@
             <line x1="0" y1="48" x2="300" y2="48" stroke="#24272E" stroke-width="0.5"/>
             <line x1="255" y1="0" x2="255" y2="72" stroke="#363A42" stroke-width="0.5" stroke-dasharray="2 3"/>
             <!-- IR curve: flat-slope1-steep after kink -->
-            <path d="M0 60 L120 52 L180 44 L255 30 L300 4" stroke="#E8B84A" stroke-width="1.5" fill="none"/>
+            <path d="M0 60 L120 52 L180 44 L255 30 L300 4" stroke="#4EA1FF" stroke-width="1.5" fill="none"/>
             <path d="M0 60 L120 52 L180 44 L255 30 L300 4 L300 72 L0 72 Z" fill="url(#curveFill)"/>
             <!-- kink marker -->
-            <circle cx="255" cy="30" r="2.5" fill="#E8B84A"/>
+            <circle cx="255" cy="30" r="2.5" fill="#4EA1FF"/>
           </svg>
           <div class="yield-curve-legend">
             <span>0% util.</span>
@@ -833,7 +869,7 @@
 
         <!-- Center: market -->
         <g>
-          <rect x="360" y="170" width="180" height="80" fill="#0A0B0D" stroke="#E8B84A" stroke-width="1"/>
+          <rect x="360" y="170" width="180" height="80" fill="#0A0B0D" stroke="#4EA1FF" stroke-width="1"/>
           <text x="450" y="200" text-anchor="middle" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">MARKET</text>
           <text x="450" y="222" text-anchor="middle" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="13">0x4a3f…c8f2</text>
           <text x="450" y="238" text-anchor="middle" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">v0.1 · Daml</text>
@@ -882,7 +918,7 @@
         <text x="820" y="392" text-anchor="end" fill="#55595F" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">SELECTIVE DISCLOSURE</text>
 
         <!-- Meridian mark on the market box -->
-        <line x1="450" y1="170" x2="450" y2="250" stroke="#E8B84A" stroke-width="0.5" stroke-dasharray="1 2" opacity="0.5"/>
+        <line x1="450" y1="170" x2="450" y2="250" stroke="#4EA1FF" stroke-width="0.5" stroke-dasharray="1 2" opacity="0.5"/>
       </svg>
 
       <div class="anatomy-legend">
