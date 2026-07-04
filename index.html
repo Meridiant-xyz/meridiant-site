@@ -660,6 +660,165 @@
     gap: 16px;
   }
 
+  /* ---------- Whitepaper modal ---------- */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(10, 11, 13, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 220ms ease, visibility 220ms ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  .modal-box,
+  .success-box {
+    grid-area: 1 / 1;
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 48px 40px 40px;
+    text-align: center;
+    transform: translateY(10px) scale(0.98);
+    transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+  }
+  .modal-overlay.open .modal-box {
+    transform: translateY(0) scale(1);
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--text-2);
+    cursor: pointer;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+  .modal-close:hover {
+    color: var(--text);
+    border-color: var(--line-strong);
+  }
+  .modal-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--signal);
+    margin: 0 auto 24px;
+    display: block;
+  }
+  .modal-eyebrow {
+    color: var(--signal);
+    margin: 0 0 14px;
+  }
+  .modal-title {
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    margin: 0 0 14px;
+  }
+  .modal-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-2);
+    margin: 0 0 28px;
+  }
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .modal-input {
+    height: 44px;
+    padding: 0 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    transition: border-color 150ms ease;
+  }
+  .modal-input::placeholder { color: var(--text-3); }
+  .modal-input:focus {
+    outline: none;
+    border-color: var(--signal-dim);
+  }
+  .modal-input.error {
+    border-color: var(--neg);
+  }
+  .modal-error {
+    margin: -2px 0 0;
+    font-size: 12px;
+    text-align: left;
+    color: var(--neg);
+  }
+  .modal-submit {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-overlay.success .modal-box {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px) scale(0.96);
+    pointer-events: none;
+  }
+  .success-box {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.96);
+    pointer-events: none;
+    transition-delay: 100ms;
+  }
+  .modal-overlay.success .success-box {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .success-box-icon {
+    width: 32px;
+    height: 32px;
+    color: var(--signal);
+    margin: 0 auto 24px;
+    display: block;
+  }
+  .success-box-title {
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    margin: 0 0 14px;
+  }
+  .success-box-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-2);
+    margin: 0 0 28px;
+  }
+  .success-box-back {
+    width: 100%;
+    justify-content: center;
+  }
+
   /* ---------- Responsive ---------- */
   @media (max-width: 900px) {
     .wrap { padding: 0 20px; }
@@ -727,7 +886,7 @@
       <a href="#" aria-label="Documentation">Docs</a>
       <a href="#" aria-label="GitHub">GitHub</a>
     </div>
-    <a href="#" class="btn btn-secondary">
+    <a href="#" class="btn btn-secondary js-whitepaper-trigger">
       Whitepaper
       <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
     </a>
@@ -743,7 +902,7 @@
         <h1 class="headline">Isolated-market lending, engineered for <em class="accent">Canton</em>.</h1>
         <p class="sub">Every market is a contract of its own — one collateral, one loan asset, one oracle. Native atomic settlement. Position privacy by default. <span class="highlight">Built for institutions.</span></p>
         <div class="hero-ctas">
-          <a href="#" class="btn btn-primary">
+          <a href="#" class="btn btn-primary js-whitepaper-trigger">
             Read the whitepaper
             <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
           </a>
@@ -998,7 +1157,7 @@
   <div class="wrap">
     <h3>Read the technical whitepaper for the full protocol specification.</h3>
     <div class="actions">
-      <a href="#" class="btn btn-primary">
+      <a href="#" class="btn btn-primary js-whitepaper-trigger">
         Whitepaper
         <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
       </a>
@@ -1027,7 +1186,7 @@
         <h5>Product</h5>
         <a href="#">Markets</a>
         <a href="#">Documentation</a>
-        <a href="#">Whitepaper</a>
+        <a href="#" class="js-whitepaper-trigger">Whitepaper</a>
         <a href="#">Audits</a>
       </div>
       <div class="footer-col">
@@ -1057,6 +1216,51 @@
   </div>
 </footer>
 
+<!-- ---------- Whitepaper modal ---------- -->
+<div class="modal-overlay" id="whitepaperModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="whitepaperModalTitle">
+    <button class="modal-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+    </button>
+
+    <svg class="modal-icon" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+      <circle cx="11" cy="11" r="9.5"/>
+      <line x1="11" y1="1.5" x2="11" y2="20.5"/>
+      <path d="M2 11 A9.5 5 0 0 0 20 11"/>
+      <path d="M2 11 A9.5 5 0 0 1 20 11"/>
+    </svg>
+
+    <p class="micro modal-eyebrow">Early access</p>
+    <h3 id="whitepaperModalTitle" class="modal-title">The Meridiant whitepaper is coming soon.</h3>
+    <p class="modal-body">The full spec is almost ready. Leave your email and we'll send it your way.</p>
+
+    <form class="modal-form" id="whitepaperForm" novalidate>
+      <input type="email" class="modal-input" name="email" placeholder="you@institution.com" aria-label="Email address" required>
+      <p class="modal-error" hidden></p>
+      <button type="submit" class="btn btn-primary modal-submit">
+        Notify me
+        <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <div class="success-box" aria-hidden="true">
+    <button class="modal-close success-box-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>
+    </button>
+
+    <svg class="success-box-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+      <circle cx="12" cy="12" r="10.5"/>
+      <path d="M7 12.5l3.2 3.2L17 9"/>
+    </svg>
+
+    <p class="micro modal-eyebrow">Thank you</p>
+    <h3 class="success-box-title">You're on the list.</h3>
+    <p class="success-box-body">We'll email you the whitepaper as soon as it's ready.</p>
+    <button type="button" class="btn btn-secondary success-box-back">Back to site</button>
+  </div>
+</div>
+
 <script>
   // Meridian labels: highlight the section closest to viewport center.
   (function() {
@@ -1075,6 +1279,86 @@
     }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
 
     sections.forEach(s => io.observe(s));
+  })();
+
+  // Whitepaper modal
+  (function() {
+    const overlay = document.getElementById('whitepaperModal');
+    if (!overlay) return;
+    const box = overlay.querySelector('.modal-box');
+    const successBox = overlay.querySelector('.success-box');
+    const closeBtns = overlay.querySelectorAll('.modal-close');
+    const backBtn = overlay.querySelector('.success-box-back');
+    const form = document.getElementById('whitepaperForm');
+    const input = form.querySelector('.modal-input');
+    const error = form.querySelector('.modal-error');
+    const triggers = document.querySelectorAll('.js-whitepaper-trigger');
+    let lastFocused = null;
+
+    function showError(message) {
+      input.classList.add('error');
+      error.textContent = message;
+      error.hidden = false;
+    }
+
+    function clearError() {
+      input.classList.remove('error');
+      error.hidden = true;
+    }
+
+    function resetModal() {
+      overlay.classList.remove('success');
+      box.setAttribute('aria-hidden', 'false');
+      successBox.setAttribute('aria-hidden', 'true');
+      form.reset();
+      clearError();
+    }
+
+    function openModal(e) {
+      if (e) e.preventDefault();
+      lastFocused = document.activeElement;
+      resetModal();
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => input.focus(), 240);
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    triggers.forEach(t => t.addEventListener('click', openModal));
+    closeBtns.forEach(btn => btn.addEventListener('click', closeModal));
+    backBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+    });
+    input.addEventListener('input', clearError);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (input.value.trim() === '') {
+        showError('Please enter your email address.');
+        input.focus();
+        return;
+      }
+      if (!input.checkValidity()) {
+        showError('Please enter a valid email address.');
+        input.focus();
+        return;
+      }
+      clearError();
+      overlay.classList.add('success');
+      box.setAttribute('aria-hidden', 'true');
+      successBox.setAttribute('aria-hidden', 'false');
+    });
   })();
 </script>
 
