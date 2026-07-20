@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" width="360" height="96" fill="none">
+  <g transform="translate(12,16) scale(1.333)">
+  <circle cx="24" cy="24" r="18" stroke="#f6f6f4" stroke-width="1.4"></circle>
+  <ellipse cx="24" cy="24" rx="7" ry="18" stroke="#f6f6f4" stroke-width="1.4"></ellipse>
+  <line x1="6" y1="24" x2="42" y2="24" stroke="#f6f6f4" stroke-width="1.4"></line>
+  <circle cx="24" cy="6" r="3" fill="#A8B454"></circle></g>
+  <text x="104" y="60" font-family="&#39;Space Grotesk&#39;,&#39;Helvetica Neue&#39;,Arial,sans-serif" font-size="34" font-weight="600" letter-spacing="4.8" fill="#f6f6f4">MERIDIANT</text>
+</svg>

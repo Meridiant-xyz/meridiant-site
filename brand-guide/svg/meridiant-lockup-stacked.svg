@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 150" width="240" height="150" fill="none">
+  <g transform="translate(96,8) scale(1)">
+  <circle cx="24" cy="24" r="18" stroke="#16181e" stroke-width="1.4"></circle>
+  <ellipse cx="24" cy="24" rx="7" ry="18" stroke="#16181e" stroke-width="1.4"></ellipse>
+  <line x1="6" y1="24" x2="42" y2="24" stroke="#16181e" stroke-width="1.4"></line>
+  <circle cx="24" cy="6" r="3" fill="#A8B454"></circle></g>
+  <text x="120" y="104" text-anchor="middle" font-family="&#39;Space Grotesk&#39;,&#39;Helvetica Neue&#39;,Arial,sans-serif" font-size="24" font-weight="600" letter-spacing="4.8" fill="#16181e">MERIDIANT</text>
+  <text x="120" y="128" text-anchor="middle" font-family="&#39;IBM Plex Mono&#39;,monospace" font-size="8.5" font-weight="400" letter-spacing="3" fill="#9a9f99">ISOLATED-MARKET LENDING</text>
+</svg>
