@@ -650,14 +650,34 @@
   .footer-meta {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
     padding-top: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-legal {
+    max-width: 52ch;
+  }
+  .footer-legal p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.65;
+    color: var(--text-3);
+  }
+  .footer-legal p + p {
+    margin-top: 8px;
+  }
+  .footer-legal .entity {
+    color: var(--text-2);
+    font-weight: 500;
+  }
+  .footer-copy {
     font-family: var(--mono);
     font-size: 11px;
     letter-spacing: 0.1em;
     color: var(--text-3);
     text-transform: uppercase;
-    flex-wrap: wrap;
-    gap: 16px;
+    white-space: nowrap;
   }
 
   /* ---------- Whitepaper modal ---------- */
@@ -835,6 +855,7 @@
     .cta-strip .wrap { grid-template-columns: 1fr; }
     .cta-strip h3 { font-size: 28px; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-meta { align-items: flex-start; flex-direction: column; gap: 20px; }
     .section-head { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
     .section-title { text-align: left; }
     .nav-links { display: none; }
@@ -1210,8 +1231,11 @@
       </div>
     </div>
     <div class="footer-meta">
-      <span>Meridiant · Canton Participant ID · Pending</span>
-      <span>© 2026 Meridiant · All rights reserved · v0.1</span>
+      <div class="footer-legal">
+        <p>Meridiant is a trade name of <span class="entity">CATALYST LABS L.L.C-FZ</span>.</p>
+        <p>Meydan Grandstand, 6th floor, Meydan Road, Dubai, U.A.E.</p>
+      </div>
+      <span class="footer-copy">© 2026 Catalyst Labs L.L.C-FZ · All rights reserved</span>
     </div>
   </div>
 </footer>
