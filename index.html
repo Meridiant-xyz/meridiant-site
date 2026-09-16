@@ -1,10 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
 <title>Meridiant — Isolated-market lending on Canton</title>
 <meta name="description" content="Isolated-market lending engineered for Canton Network. Position privacy by default, atomic composition, per-market risk isolation.">
+<script>
+  (function() {
+    try {
+      var stored = localStorage.getItem('theme');
+      document.documentElement.setAttribute('data-theme', stored === 'light' ? 'light' : 'dark');
+    } catch (e) {}
+  })();
+</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,11 +30,34 @@
     --text-2: #8A8F98;
     --text-3: #55595F;
     --signal: #A8B454;
+    --signal-text: #A8B454;
     --signal-dim: #5A6B2A;
+    --signal-hover: #C2CE7A;
+    --on-signal: #0A0B0D;
     --pos: #7EC488;
     --neg: #D97070;
     --sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     --mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    color-scheme: dark;
+  }
+
+  html[data-theme="light"] {
+    --bg: #F6F6F4;
+    --surface: #FFFFFF;
+    --surface-2: #EFEFEA;
+    --line: #E2E2DE;
+    --line-strong: #C8C8C0;
+    --text: #16181E;
+    --text-2: #3D424C;
+    --text-3: #8A8F99;
+    --signal: #A8B454;
+    --signal-text: #5F7A2E;
+    --signal-dim: #C7CBB8;
+    --signal-hover: #97A348;
+    --on-signal: #16181E;
+    --pos: #2F9A55;
+    --neg: #C25B52;
+    color-scheme: light;
   }
 
   * { box-sizing: border-box; }
@@ -42,7 +74,7 @@
     overflow-x: hidden;
   }
 
-  ::selection { background: var(--signal); color: var(--bg); }
+  ::selection { background: var(--signal); color: var(--on-signal); }
 
   a { color: inherit; text-decoration: none; }
 
@@ -116,7 +148,7 @@
     letter-spacing: 0.12em;
   }
   .meridian-label.active {
-    color: var(--signal);
+    color: var(--signal-text);
   }
   .meridian-label.active::before {
     content: "";
@@ -143,7 +175,8 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    background: rgba(10, 11, 13, 0.8);
+    background: var(--bg);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
     backdrop-filter: saturate(140%) blur(12px);
     -webkit-backdrop-filter: saturate(140%) blur(12px);
     border-bottom: 1px solid var(--line);
@@ -178,6 +211,34 @@
   }
   .nav-links a:hover { color: var(--text); }
 
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    color: var(--text-2);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+  .theme-toggle:hover {
+    color: var(--text);
+    border-color: var(--line-strong);
+  }
+  .theme-toggle svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+  .theme-toggle .icon-moon { display: none; }
+  html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+  html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+
   .btn {
     display: inline-flex;
     align-items: center;
@@ -195,9 +256,9 @@
   }
   .btn-primary {
     background: var(--signal);
-    color: var(--bg);
+    color: var(--on-signal);
   }
-  .btn-primary:hover { background: #C2CE7A; }
+  .btn-primary:hover { background: var(--signal-hover); }
   .btn-secondary {
     background: transparent;
     color: var(--text);
@@ -230,7 +291,7 @@
   .section-index {
     font-family: var(--mono);
     font-size: 12px;
-    color: var(--signal);
+    color: var(--signal-text);
     letter-spacing: 0.08em;
   }
   .section-title {
@@ -279,7 +340,7 @@
     max-width: 12ch;
   }
   h1.headline .accent {
-    color: var(--signal);
+    color: var(--signal-text);
     font-style: normal;
   }
   .sub {
@@ -290,7 +351,7 @@
     margin: 0 0 40px;
   }
   .sub .highlight {
-    color: var(--signal);
+    color: var(--signal-text);
     font-weight: 500;
   }
   .hero-ctas {
@@ -298,7 +359,7 @@
     align-items: center;
     gap: 16px;
   }
-  .coming-soon {
+  .live-badge {
     display: inline-flex;
     align-items: center;
     gap: 9px;
@@ -306,16 +367,16 @@
     padding: 0 16px;
     border-radius: 4px;
     border: 1px solid var(--signal-dim);
-    background: rgba(168, 180, 84, 0.1);
+    background: color-mix(in srgb, var(--signal) 12%, transparent);
     font-family: var(--mono);
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--signal);
-    box-shadow: 0 0 24px rgba(168, 180, 84, 0.15);
+    color: var(--signal-text);
+    box-shadow: 0 0 24px color-mix(in srgb, var(--signal) 15%, transparent);
   }
-  .coming-soon .dot {
+  .live-badge .dot {
     width: 5px;
     height: 5px;
     border-radius: 50%;
@@ -404,7 +465,7 @@
     color: var(--text);
     font-variant-numeric: tabular-nums;
   }
-  .market-row.emphasis .v { color: var(--signal); }
+  .market-row.emphasis .v { color: var(--signal-text); }
   .market-divider {
     height: 1px;
     background: var(--line);
@@ -452,7 +513,7 @@
   .principle-num {
     font-family: var(--mono);
     font-size: 12px;
-    color: var(--signal);
+    color: var(--signal-text);
     letter-spacing: 0.08em;
     padding-top: 8px;
   }
@@ -536,7 +597,7 @@
     line-height: 1.05;
     margin: 0;
   }
-  .canton-intro h2 .accent { color: var(--signal); font-style: normal; }
+  .canton-intro h2 .accent { color: var(--signal-text); font-style: normal; }
   .canton-intro p {
     font-size: 17px;
     line-height: 1.6;
@@ -561,7 +622,7 @@
   .pillar-num {
     font-family: var(--mono);
     font-size: 11px;
-    color: var(--signal);
+    color: var(--signal-text);
     letter-spacing: 0.12em;
     margin-bottom: 20px;
     display: block;
@@ -748,10 +809,15 @@
       <a href="https://docs.meridiant.xyz/" target="_blank" rel="noopener noreferrer" aria-label="Documentation">Docs</a>
       <a href="/brand-guide" aria-label="Brand Guide">Brand Guide</a>
     </div>
-    <span class="btn btn-secondary" style="visibility:hidden;" aria-hidden="true" tabindex="-1">
-      Whitepaper
-      <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-    </span>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 3v1.5M12 19.5V21M3 12h1.5M19.5 12H21M5.64 5.64l1.06 1.06M17.3 17.3l1.06 1.06M5.64 18.36l1.06-1.06M17.3 6.7l1.06-1.06"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M15.5 4.2A8 8 0 1 0 19.8 15.5 6.5 6.5 0 0 1 15.5 4.2z"/>
+      </svg>
+    </button>
   </div>
 </nav>
 
@@ -768,7 +834,7 @@
             Read the docs
             <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
           </a>
-          <span class="coming-soon"><span class="dot"></span>Coming soon</span>
+          <span class="live-badge"><span class="dot"></span>Mainnet Live</span>
         </div>
         <div class="hero-meta">
           <div>
@@ -810,19 +876,19 @@
           <svg viewBox="0 0 300 72" preserveAspectRatio="none" aria-hidden="true">
             <defs>
               <linearGradient id="curveFill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#A8B454" stop-opacity="0.18"/>
-                <stop offset="1" stop-color="#A8B454" stop-opacity="0"/>
+                <stop offset="0" stop-color="var(--signal)" stop-opacity="0.18"/>
+                <stop offset="1" stop-color="var(--signal)" stop-opacity="0"/>
               </linearGradient>
             </defs>
             <!-- grid -->
-            <line x1="0" y1="24" x2="300" y2="24" stroke="#24272E" stroke-width="0.5"/>
-            <line x1="0" y1="48" x2="300" y2="48" stroke="#24272E" stroke-width="0.5"/>
-            <line x1="255" y1="0" x2="255" y2="72" stroke="#363A42" stroke-width="0.5" stroke-dasharray="2 3"/>
+            <line x1="0" y1="24" x2="300" y2="24" stroke="var(--line)" stroke-width="0.5"/>
+            <line x1="0" y1="48" x2="300" y2="48" stroke="var(--line)" stroke-width="0.5"/>
+            <line x1="255" y1="0" x2="255" y2="72" stroke="var(--line-strong)" stroke-width="0.5" stroke-dasharray="2 3"/>
             <!-- IR curve: flat-slope1-steep after kink -->
-            <path d="M0 60 L120 52 L180 44 L255 30 L300 4" stroke="#A8B454" stroke-width="1.5" fill="none"/>
+            <path d="M0 60 L120 52 L180 44 L255 30 L300 4" stroke="var(--signal)" stroke-width="1.5" fill="none"/>
             <path d="M0 60 L120 52 L180 44 L255 30 L300 4 L300 72 L0 72 Z" fill="url(#curveFill)"/>
             <!-- kink marker -->
-            <circle cx="255" cy="30" r="2.5" fill="#A8B454"/>
+            <circle cx="255" cy="30" r="2.5" fill="var(--signal)"/>
           </svg>
           <div class="yield-curve-legend">
             <span>0% util.</span>
@@ -888,62 +954,62 @@
         <title id="anatomy-title">Anatomy of an isolated market</title>
         <defs>
           <marker id="tick" markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto">
-            <circle cx="2" cy="2" r="1.5" fill="#8A8F98"/>
+            <circle cx="2" cy="2" r="1.5" fill="var(--text-2)"/>
           </marker>
         </defs>
 
         <!-- Center: market -->
         <g>
-          <rect x="360" y="170" width="180" height="80" fill="#0A0B0D" stroke="#A8B454" stroke-width="1"/>
-          <text x="450" y="200" text-anchor="middle" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">MARKET</text>
-          <text x="450" y="222" text-anchor="middle" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="13">0x4a3f…c8f2</text>
-          <text x="450" y="238" text-anchor="middle" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">v0.1 · Daml</text>
+          <rect x="360" y="170" width="180" height="80" fill="var(--bg)" stroke="var(--signal)" stroke-width="1"/>
+          <text x="450" y="200" text-anchor="middle" fill="var(--text-2)" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">MARKET</text>
+          <text x="450" y="222" text-anchor="middle" fill="var(--text)" font-family="Geist Mono, monospace" font-size="13">0x4a3f…c8f2</text>
+          <text x="450" y="238" text-anchor="middle" fill="var(--text-3)" font-family="Geist Mono, monospace" font-size="10">v0.1 · Daml</text>
         </g>
 
         <!-- Four spokes -->
         <!-- Top left: Collateral -->
         <g>
-          <line x1="360" y1="200" x2="200" y2="90" stroke="#363A42" stroke-width="0.75" stroke-dasharray="0" marker-end="url(#tick)"/>
-          <rect x="80" y="60" width="180" height="72" fill="#121418" stroke="#24272E"/>
-          <text x="96" y="82" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">COLLATERAL</text>
-          <text x="96" y="104" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="14">cBTC</text>
-          <text x="96" y="121" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">Canton-native BTC</text>
+          <line x1="360" y1="200" x2="200" y2="90" stroke="var(--line-strong)" stroke-width="0.75" stroke-dasharray="0" marker-end="url(#tick)"/>
+          <rect x="80" y="60" width="180" height="72" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="96" y="82" fill="var(--text-2)" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">COLLATERAL</text>
+          <text x="96" y="104" fill="var(--text)" font-family="Geist Mono, monospace" font-size="14">cBTC</text>
+          <text x="96" y="121" fill="var(--text-3)" font-family="Geist Mono, monospace" font-size="10">Canton-native BTC</text>
         </g>
 
         <!-- Top right: Loan asset -->
         <g>
-          <line x1="540" y1="200" x2="700" y2="90" stroke="#363A42" stroke-width="0.75" marker-end="url(#tick)"/>
-          <rect x="640" y="60" width="180" height="72" fill="#121418" stroke="#24272E"/>
-          <text x="656" y="82" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">LOAN ASSET</text>
-          <text x="656" y="104" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="14">USDC.c</text>
-          <text x="656" y="121" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">Circle · CCTP</text>
+          <line x1="540" y1="200" x2="700" y2="90" stroke="var(--line-strong)" stroke-width="0.75" marker-end="url(#tick)"/>
+          <rect x="640" y="60" width="180" height="72" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="656" y="82" fill="var(--text-2)" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">LOAN ASSET</text>
+          <text x="656" y="104" fill="var(--text)" font-family="Geist Mono, monospace" font-size="14">USDC.c</text>
+          <text x="656" y="121" fill="var(--text-3)" font-family="Geist Mono, monospace" font-size="10">Circle · CCTP</text>
         </g>
 
         <!-- Bottom left: Oracle -->
         <g>
-          <line x1="360" y1="220" x2="200" y2="330" stroke="#363A42" stroke-width="0.75" marker-end="url(#tick)"/>
-          <rect x="80" y="288" width="180" height="72" fill="#121418" stroke="#24272E"/>
-          <text x="96" y="310" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">ORACLE</text>
-          <text x="96" y="332" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="14">Canton Registry</text>
-          <text x="96" y="349" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">Sub-second updates</text>
+          <line x1="360" y1="220" x2="200" y2="330" stroke="var(--line-strong)" stroke-width="0.75" marker-end="url(#tick)"/>
+          <rect x="80" y="288" width="180" height="72" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="96" y="310" fill="var(--text-2)" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">ORACLE</text>
+          <text x="96" y="332" fill="var(--text)" font-family="Geist Mono, monospace" font-size="14">Canton Registry</text>
+          <text x="96" y="349" fill="var(--text-3)" font-family="Geist Mono, monospace" font-size="10">Sub-second updates</text>
         </g>
 
         <!-- Bottom right: Interest model -->
         <g>
-          <line x1="540" y1="220" x2="700" y2="330" stroke="#363A42" stroke-width="0.75" marker-end="url(#tick)"/>
-          <rect x="640" y="288" width="180" height="72" fill="#121418" stroke="#24272E"/>
-          <text x="656" y="310" fill="#8A8F98" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">INTEREST MODEL</text>
-          <text x="656" y="332" fill="#F2F0EA" font-family="Geist Mono, monospace" font-size="14">Two-slope · 85%</text>
-          <text x="656" y="349" fill="#55595F" font-family="Geist Mono, monospace" font-size="10">Kink at utilization</text>
+          <line x1="540" y1="220" x2="700" y2="330" stroke="var(--line-strong)" stroke-width="0.75" marker-end="url(#tick)"/>
+          <rect x="640" y="288" width="180" height="72" fill="var(--surface)" stroke="var(--line)"/>
+          <text x="656" y="310" fill="var(--text-2)" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">INTEREST MODEL</text>
+          <text x="656" y="332" fill="var(--text)" font-family="Geist Mono, monospace" font-size="14">Two-slope · 85%</text>
+          <text x="656" y="349" fill="var(--text-3)" font-family="Geist Mono, monospace" font-size="10">Kink at utilization</text>
         </g>
 
         <!-- Observer band underneath -->
-        <line x1="80" y1="400" x2="820" y2="400" stroke="#24272E" stroke-width="0.5"/>
-        <text x="80" y="392" fill="#55595F" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">OBSERVERS</text>
-        <text x="820" y="392" text-anchor="end" fill="#55595F" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">SELECTIVE DISCLOSURE</text>
+        <line x1="80" y1="400" x2="820" y2="400" stroke="var(--line)" stroke-width="0.5"/>
+        <text x="80" y="392" fill="var(--text-3)" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">OBSERVERS</text>
+        <text x="820" y="392" text-anchor="end" fill="var(--text-3)" font-family="Geist Mono, monospace" font-size="10" letter-spacing="1.4">SELECTIVE DISCLOSURE</text>
 
         <!-- Meridian mark on the market box -->
-        <line x1="450" y1="170" x2="450" y2="250" stroke="#A8B454" stroke-width="0.5" stroke-dasharray="1 2" opacity="0.5"/>
+        <line x1="450" y1="170" x2="450" y2="250" stroke="var(--signal)" stroke-width="0.5" stroke-dasharray="1 2" opacity="0.5"/>
       </svg>
 
       <div class="anatomy-legend">
@@ -1059,8 +1125,7 @@
       </div>
       <div class="footer-col">
         <h5>Resources</h5>
-        <a href="#">GitHub</a>
-        <a href="#">Twitter</a>
+        <a href="https://x.com/meridiantxyz" target="_blank" rel="noopener noreferrer">Twitter</a>
         <a href="#">Blog</a>
         <a href="#">Brand</a>
       </div>
@@ -1099,6 +1164,33 @@
     }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
 
     sections.forEach(s => io.observe(s));
+  })();
+
+  // Theme toggle: dark by default, persisted after the first click.
+  (function() {
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+
+    function current() {
+      return root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    }
+
+    function syncButton(theme) {
+      const next = theme === 'dark' ? 'light' : 'dark';
+      const label = 'Switch to ' + next + ' mode';
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+    }
+
+    function apply(theme) {
+      root.setAttribute('data-theme', theme);
+      try { localStorage.setItem('theme', theme); } catch (e) {}
+      syncButton(theme);
+    }
+
+    syncButton(current());
+    btn.addEventListener('click', () => apply(current() === 'dark' ? 'light' : 'dark'));
   })();
 </script>
 
