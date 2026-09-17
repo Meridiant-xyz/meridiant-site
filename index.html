@@ -374,7 +374,19 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--signal-text);
+    text-decoration: none;
+    cursor: pointer;
     box-shadow: 0 0 24px color-mix(in srgb, var(--signal) 15%, transparent);
+    transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease;
+  }
+  .live-badge:hover {
+    border-color: var(--signal);
+    background: color-mix(in srgb, var(--signal) 20%, transparent);
+    box-shadow: 0 0 28px color-mix(in srgb, var(--signal) 22%, transparent);
+  }
+  .live-badge:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 2px;
   }
   .live-badge .dot {
     width: 5px;
@@ -830,11 +842,13 @@
         <h1 class="headline">Isolated-market lending, engineered for <em class="accent">Canton</em>.</h1>
         <p class="sub">Every market is a contract of its own — one collateral, one loan asset, one oracle. Native atomic settlement. Position privacy by default. <span class="highlight">Built for institutions.</span></p>
         <div class="hero-ctas">
-          <a href="https://docs.meridiant.xyz/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-            Read the docs
+          <a href="https://app.meridiant.xyz" class="live-badge" target="_blank" rel="noopener noreferrer" aria-label="Open Meridiant app — Mainnet Live">
+            MAINNET LIVE
             <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
           </a>
-          <span class="live-badge"><span class="dot"></span>Mainnet Live</span>
+          <a href="https://docs.meridiant.xyz/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            Read the docs
+          </a>
         </div>
         <div class="hero-meta">
           <div>
@@ -861,7 +875,7 @@
         </div>
         <div class="market-table">
           <div class="market-row"><span>Collateral</span><span class="v">cBTC</span></div>
-          <div class="market-row"><span>Loan asset</span><span class="v">USDC.c</span></div>
+          <div class="market-row"><span>Loan asset</span><span class="v">CC</span></div>
           <div class="market-row"><span>Oracle</span><span class="v">Canton Registry</span></div>
           <div class="market-divider"></div>
           <div class="market-row"><span>LTV</span><span class="v">72.50 %</span></div>
