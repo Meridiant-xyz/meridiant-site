@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Meridiant blog</title>
+    <link>https://meridiant.xyz/blog/</link>
+    <atom:link href="https://meridiant.xyz/blog/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Writing from Meridiant on private, isolated-market lending for Canton Network.</description>
+    <language>en</language>
+    <lastBuildDate>Mon, 12 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>What Institutional On-Chain Lending Has Been Missing: Privacy with Isolation</title>
+      <link>https://meridiant.xyz/blog/privacy-with-isolation/</link>
+      <guid isPermaLink="true">https://meridiant.xyz/blog/privacy-with-isolation/</guid>
+      <pubDate>Thu, 24 Sep 2026 13:30:00 +0000</pubDate>
+      <description>Privacy isn't a feature Canton added to a lending market. It's the thesis the network was built on. Why institutional on-chain credit needs selective disclosure, market-level isolation and atomic settlement from the same infrastructure.</description>
+    </item>
+  </channel>
+</rss>

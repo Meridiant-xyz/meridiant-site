@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Blog — Meridiant</title>
+<meta name="description" content="Writing from Meridiant on private, isolated-market lending for Canton Network: design notes, market structure, and what institutional on-chain credit needs.">
+<link rel="canonical" href="https://meridiant.xyz/blog/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Meridiant">
+<meta property="og:title" content="Blog — Meridiant">
+<meta property="og:description" content="Writing from Meridiant on private, isolated-market lending for Canton Network.">
+<meta property="og:url" content="https://meridiant.xyz/blog/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@meridiantxyz">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "https://meridiant.xyz/blog/#blog",
+  "url": "https://meridiant.xyz/blog/",
+  "name": "Meridiant blog",
+  "description": "Writing from Meridiant on private, isolated-market lending for Canton Network.",
+  "publisher": { "@id": "https://meridiant.xyz/#organization" },
+  "blogPost": [
+    { "@type": "BlogPosting", "@id": "https://meridiant.xyz/blog/privacy-with-isolation/#post", "url": "https://meridiant.xyz/blog/privacy-with-isolation/", "headline": "What Institutional On-Chain Lending Has Been Missing: Privacy with Isolation", "datePublished": "2026-09-24" }
+  ]
+}
+</script>
+<script>
+  (function() {
+    try {
+      var stored = localStorage.getItem("theme");
+      document.documentElement.setAttribute("data-theme", stored === "light" ? "light" : "dark");
+    } catch (e) {}
+  })();
+</script>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Meridiant blog" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css">
+</head>
+<body>
+<!-- Meridian signature -->
+<div class="meridian" aria-hidden="true"></div>
+
+<nav class="top" aria-label="Primary">
+  <div class="wrap">
+    <a href="/" class="brand" aria-label="Meridiant home">
+      <svg class="brand-mark" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="11" cy="11" r="9.5"/>
+        <line x1="11" y1="1.5" x2="11" y2="20.5"/>
+        <path d="M2 11 A9.5 5 0 0 0 20 11"/>
+        <path d="M2 11 A9.5 5 0 0 1 20 11"/>
+      </svg>
+      Meridiant
+    </a>
+    <div class="nav-links" role="navigation">
+      <a href="/">Home</a>
+      <a href="/blog/" aria-current="page">Blog</a>
+      <a href="https://docs.meridiant.xyz/" target="_blank" rel="noopener noreferrer" aria-label="Documentation">Docs</a>
+      <a href="https://app.meridiant.xyz" target="_blank" rel="noopener noreferrer">App</a>
+      <a href="/brand-guide" aria-label="Brand Guide">Brand Guide</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 3v1.5M12 19.5V21M3 12h1.5M19.5 12H21M5.64 5.64l1.06 1.06M17.3 17.3l1.06 1.06M5.64 18.36l1.06-1.06M17.3 6.7l1.06-1.06"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M15.5 4.2A8 8 0 1 0 19.8 15.5 6.5 6.5 0 0 1 15.5 4.2z"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<header class="page-head">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Blog</div>
+    <h1>Notes on private, <em class="accent">isolated</em> credit.</h1>
+    <p class="sub">Design notes and arguments from the team building Meridiant: what institutional on-chain lending needs, and how Canton lets us build it.</p>
+  </div>
+</header>
+
+<main class="post-list">
+  <div class="wrap">
+    <article class="post-item">
+      <time class="date" datetime="2026-09-24">24 SEP 2026</time>
+      <div>
+        <h2><a href="/blog/privacy-with-isolation/">What Institutional On-Chain Lending Has Been Missing: Privacy with Isolation</a></h2>
+        <p>Privacy isn't a feature Canton added to a lending market. It's the thesis the network was built on. Why institutional credit needs selective disclosure, market-level isolation and atomic settlement from the same infrastructure, and why none of the three can do another's job.</p>
+        <a class="more" href="/blog/privacy-with-isolation/">Read the article <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg></a>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="brand" aria-label="Meridiant home">
+          <svg class="brand-mark" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <circle cx="11" cy="11" r="9.5"/>
+            <line x1="11" y1="1.5" x2="11" y2="20.5"/>
+            <path d="M2 11 A9.5 5 0 0 0 20 11"/>
+            <path d="M2 11 A9.5 5 0 0 1 20 11"/>
+          </svg>
+          Meridiant
+        </a>
+        <p>Isolated-market lending engineered for Canton Network. Position privacy by default, atomic composition, per-market risk isolation.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="https://app.meridiant.xyz" target="_blank" rel="noopener noreferrer">App</a>
+        <a href="https://docs.meridiant.xyz/" target="_blank" rel="noopener noreferrer">Documentation</a>
+        <a href="https://docs.meridiant.xyz/docs/getting-started" target="_blank" rel="noopener noreferrer">Getting started</a>
+      </div>
+      <div class="footer-col">
+        <h5>Network</h5>
+        <a href="https://www.canton.network/" target="_blank" rel="noopener noreferrer">Canton Network</a>
+        <a href="https://www.canton.network/global-synchronizer" target="_blank" rel="noopener noreferrer">Global Synchronizer</a>
+        <a href="https://docs.sync.global/" target="_blank" rel="noopener noreferrer">Canton Coin</a>
+      </div>
+      <div class="footer-col">
+        <h5>Community</h5>
+        <a href="/blog/">Blog</a>
+        <a href="https://x.com/meridiantxyz" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+        <a href="https://github.com/Meridiant-xyz" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/brand-guide">Brand guide</a>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <div class="footer-legal">
+        <p>Meridiant is a trade name of <span class="entity">CATALYST LABS L.L.C-FZ</span>.</p>
+        <p>Meydan Grandstand, 6th floor, Meydan Road, Dubai, U.A.E.</p>
+      </div>
+      <span class="footer-copy">© 2026 Catalyst Labs L.L.C-FZ · All rights reserved</span>
+    </div>
+  </div>
+</footer>
+<script src="/blog/blog.js"></script>
+</body>
+</html>

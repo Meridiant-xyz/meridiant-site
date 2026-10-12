@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>What Institutional On-Chain Lending Has Been Missing: Privacy with Isolation — Meridiant</title>
+<meta name="description" content="Privacy isn't a feature Canton added to a lending market. It's the thesis the network was built on. Why institutional on-chain credit needs selective disclosure, market-level isolation and atomic settlement together.">
+<link rel="canonical" href="https://meridiant.xyz/blog/privacy-with-isolation/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Meridiant">
+<meta property="og:title" content="What Institutional On-Chain Lending Has Been Missing: Privacy with Isolation">
+<meta property="og:description" content="Why institutional on-chain credit needs selective disclosure, market-level isolation and atomic settlement from the same infrastructure.">
+<meta property="og:url" content="https://meridiant.xyz/blog/privacy-with-isolation/">
+<meta property="article:published_time" content="2026-09-24T19:00:00+05:30">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@meridiantxyz">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "https://meridiant.xyz/blog/privacy-with-isolation/#post",
+  "mainEntityOfPage": "https://meridiant.xyz/blog/privacy-with-isolation/",
+  "url": "https://meridiant.xyz/blog/privacy-with-isolation/",
+  "headline": "What Institutional On-Chain Lending Has Been Missing: Privacy with Isolation",
+  "description": "Why institutional on-chain credit needs selective disclosure, market-level isolation and atomic settlement from the same infrastructure.",
+  "datePublished": "2026-09-24",
+  "dateModified": "2026-10-12",
+  "inLanguage": "en",
+  "author": { "@id": "https://meridiant.xyz/#organization" },
+  "publisher": { "@id": "https://meridiant.xyz/#organization" },
+  "isPartOf": { "@id": "https://meridiant.xyz/blog/#blog" },
+  "sameAs": "https://x.com/meridiantxyz/status/2103114883839443191",
+  "keywords": ["Canton Network", "isolated lending", "privacy", "selective disclosure", "atomic settlement", "institutional DeFi"]
+}
+</script>
+<script>
+  (function() {
+    try {
+      var stored = localStorage.getItem("theme");
+      document.documentElement.setAttribute("data-theme", stored === "light" ? "light" : "dark");
+    } catch (e) {}
+  })();
+</script>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/rss+xml" title="Meridiant blog" href="/blog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css">
+</head>
+<body>
+<!-- Meridian signature -->
+<div class="meridian" aria-hidden="true"></div>
+
+<nav class="top" aria-label="Primary">
+  <div class="wrap">
+    <a href="/" class="brand" aria-label="Meridiant home">
+      <svg class="brand-mark" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <circle cx="11" cy="11" r="9.5"/>
+        <line x1="11" y1="1.5" x2="11" y2="20.5"/>
+        <path d="M2 11 A9.5 5 0 0 0 20 11"/>
+        <path d="M2 11 A9.5 5 0 0 1 20 11"/>
+      </svg>
+      Meridiant
+    </a>
+    <div class="nav-links" role="navigation">
+      <a href="/">Home</a>
+      <a href="/blog/" aria-current="page">Blog</a>
+      <a href="https://docs.meridiant.xyz/" target="_blank" rel="noopener noreferrer" aria-label="Documentation">Docs</a>
+      <a href="https://app.meridiant.xyz" target="_blank" rel="noopener noreferrer">App</a>
+      <a href="/brand-guide" aria-label="Brand Guide">Brand Guide</a>
+    </div>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 3v1.5M12 19.5V21M3 12h1.5M19.5 12H21M5.64 5.64l1.06 1.06M17.3 17.3l1.06 1.06M5.64 18.36l1.06-1.06M17.3 6.7l1.06-1.06"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M15.5 4.2A8 8 0 1 0 19.8 15.5 6.5 6.5 0 0 1 15.5 4.2z"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<header class="article-head">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>Blog · Market design</div>
+    <h1>What Institutional On-Chain Lending Has Been Missing: Privacy with Isolation</h1>
+    <p class="standfirst">Privacy isn't a feature Canton added to a lending market. It's the thesis the network was built on.</p>
+    <div class="article-meta">
+      <span>By Meridiant</span>
+      <time datetime="2026-09-24">24 September 2026</time>
+      <span>6 min read</span>
+      <span>Originally published as an <a href="https://x.com/meridiantxyz/status/2103114883839443191" target="_blank" rel="noopener noreferrer">article on X</a></span>
+    </div>
+  </div>
+</header>
+
+<main class="article">
+  <div class="wrap">
+    <div class="body">
+
+      <p class="lede">Selective disclosure is enforced at the protocol layer. Data is disclosed only to the parties authorized to see or act on it. It isn't filtered by a front end, and it isn't promised by a policy after the fact. Meridiant is built around that primitive, not around it.</p>
+
+      <h2><span class="idx">§ 01</span>What institutions actually need</h2>
+
+      <p>Institutional capital won't move onto infrastructure that broadcasts position size to every competitor watching the chain. It won't move onto infrastructure that exposes client collateral to any counterparty with a block explorer open.</p>
+
+      <p>That's not caution. It's the same confidentiality standard these desks already operate under off-chain.</p>
+
+      <p>It's also not a minor item on the list. Asset managers executing large trades need confidentiality to limit information leakage, market impact and front-running. Custody firms may need to demonstrate solvency without revealing individual client holdings, while credit desks need counterparties and regulators to see the information relevant to them without exposing the entire book to the market. None of those requirements is easily met by a ledger that publishes everything by default.</p>
+
+      <p>Almost no on-chain lending market can meet that bar. Open Aave and you can see exactly what an address has supplied, borrowed and how close it sits to liquidation. <a class="src" href="https://docs.morpho.org/learn/concepts/blue/" target="_blank" rel="noopener noreferrer">Morpho Blue</a> creates isolated markets, but because it operates on public chains such as Ethereum and Base, every position still sits on a publicly observable ledger.</p>
+
+      <p>That's not a flaw in either protocol. It's a property of the chain underneath them.</p>
+
+      <p><a class="src" href="https://www.canton.network/canton-network-press-releases/canton-network-press-release" target="_blank" rel="noopener noreferrer">Canton's architecture</a> is why Meridiant doesn't share that ceiling. It is also why the network has attracted participation from financial institutions and market-infrastructure providers across <a class="src" href="https://www.canton.network/dtcc-tokenization-service-on-canton" target="_blank" rel="noopener noreferrer">tokenization</a>, repo, collateral management and securities lending. The relevant point is not simply who is connected to Canton. It is that these institutions can transact across shared infrastructure without exposing commercially sensitive data to everyone else using the network.</p>
+
+      <h2><span class="idx">§ 02</span>Privacy needs isolation underneath it</h2>
+
+      <p>Privacy on top of an interconnected lending pool doesn't remove risk. It changes who can observe it. Isolation is what determines who ultimately bears it, which is why institutional lending needs both.</p>
+
+      <p>Aave maintains separate asset reserves inside a broader, multi-asset lending pool, where borrowers can generally use one supported asset as collateral to borrow another. It has also introduced more precise protections through <a class="src" href="https://aave.com/docs/aave-v3/umbrella" target="_blank" rel="noopener noreferrer">Umbrella</a>, its bad-debt coverage system. Umbrella coverage is isolated by asset and network: staked aUSDC, for example, covers USDC deficits on that deployment rather than losses across every Aave market.</p>
+
+      <p>The distinction is therefore not that Aave operates one universal insurance fund while Meridiant does not. It is that Aave remains a cross-collateralized lending environment, whereas Meridiant isolates the entire market structure: collateral, loan asset, oracle, liquidity and resulting credit exposure.</p>
+
+      <div class="callout">
+        <p>On April 18, 2026, the difference between separating reserves and isolating complete markets became easier to see. Attackers compromised KelpDAO and used approximately $290 million in synthetic restaked-ETH tokens as collateral on Aave. Contemporary reporting placed the amount borrowed against that collateral at roughly $190 million, while estimates of the resulting bad debt reached into the hundreds of millions.</p>
+        <p>The incident triggered withdrawals well beyond the original borrowing position. Reporting at the time put total withdrawals at more than $10 billion as lenders reassessed the risks created by interconnected collateral and loan assets.</p>
+      </div>
+
+      <p>The lesson is not that Aave lacks risk controls. It is that separating asset reserves is not the same as isolating lending markets. A problem originating with one collateral asset can still create bad debt in another reserve, while a loss of confidence can spread across the wider venue.</p>
+
+      <p>Meridiant doesn't have a shared liquidity structure for that risk to travel through. Each market's collateral secures that market's loans and nothing else: one collateral asset, one loan asset, one oracle and one risk profile. The protocol doesn't combine unrelated collateral and borrowing activity inside a single cross-collateralized pool, and one market's liquidity never covers another market's losses. A bad-debt event stays with the suppliers who chose exposure to that market.</p>
+
+      <p>Because the market is also private, containing the risk doesn't require exposing the position that caused it to anyone outside the market. As <a class="src" href="https://docs.meridiant.xyz/docs/liquidation" target="_blank" rel="noopener noreferrer">Meridiant's documentation</a> puts it, liquidation can be open to anyone authorized to act without becoming visible to everyone watching.</p>
+
+      <h2><span class="idx">§ 03</span>What privacy has to survive: composition</h2>
+
+      <p>The other place privacy usually breaks is composability.</p>
+
+      <p>Borrow, swap and deploy across separate applications, and a private position has to stay coherent across every leg of that sequence, not just resolve cleanly inside Meridiant's own contracts.</p>
+
+      <p>On Canton, selective disclosure and atomic composability work together. Each participant receives only the information it is authorized to see, while the dependent legs of a multi-party transaction commit together or not at all. If one required leg fails, the transaction does not leave the others partially completed.</p>
+
+      <p>Atomicity does not create privacy by itself; Canton's disclosure model determines who can see the underlying data. But atomic execution is what allows private transactions to compose across applications without sacrificing settlement integrity or requiring the complete position to become public.</p>
+
+      <h2><span class="idx">§ 04</span>What Meridiant is, in practice</h2>
+
+      <p>Strip away the argument and Meridiant is a small number of design choices, applied consistently:</p>
+
+      <ul>
+        <li><strong>Isolated markets:</strong> One collateral asset, one loan asset, one oracle and one risk profile per market. There is no shared liquidity pool for a bad-debt event to spread into.</li>
+        <li><strong>Position privacy:</strong> A position is disclosed only to the parties authorized to observe or act on it, rather than to the network or participants in unrelated markets.</li>
+        <li><strong>Atomic settlement:</strong> Opening, repaying or liquidating a position occurs through a single Canton transaction. If any required leg fails, none of it commits.</li>
+        <li><strong>Borrower-controlled collateral:</strong> Collateral is encumbered as security rather than transferred into a protocol-owned pooled vault. The borrower retains the economic interest in it, subject to the market's repayment and liquidation rules.</li>
+      </ul>
+
+      <div class="mechanics">
+        <span class="micro">The mechanics, in order</span>
+        <ol>
+          <li>A market is created: one collateral asset, one loan asset, one oracle, one risk profile.</li>
+          <li>A supplier deposits the loan asset; that liquidity is what borrowers draw from.</li>
+          <li>A borrower locks collateral and draws a loan smaller than its value.</li>
+          <li>Interest accrues as the book is used.</li>
+          <li>The borrower repays, and collateral is released in full.<span class="or">or</span>The position falls unsafe, and an authorized participant may liquidate it at a discount; any surplus stays with the borrower.</li>
+        </ol>
+      </div>
+
+      <p>Nothing here is under-collateralized, and nothing spans more than one market.</p>
+
+      <h2><span class="idx">§ 05</span>Why this compounds</h2>
+
+      <p>Isolation without privacy still leaves a position legible to anyone watching. Privacy without isolation can leave participants exposed to losses generated by risks they did not choose. Atomicity without selective disclosure protects the execution of a transaction, but not its confidentiality.</p>
+
+      <p>No single guarantee does another's job. Selective disclosure determines who can see the position. Isolation determines who bears its risk. Atomic settlement ensures that the transaction does not execute only in part. Institutional capital needs all three from the same infrastructure, rather than as separate compromises.</p>
+
+      <p>Canton is the base layer built for that combination. Selective disclosure at the protocol layer makes privacy enforceable rather than promised, and it is the reason Meridiant can build isolation and privacy into the same market design instead of trading one against the other.</p>
+
+      <p>That architecture alone does not guarantee adoption. Meridiant will still need trusted assets, reliable oracles, deep liquidity, institutional integrations and credible distribution. But it removes two constraints that public lending protocols cannot fully solve at the application layer alone: position confidentiality and market-level containment.</p>
+
+      <p>Meridiant is therefore not simply a more private version of the same lending market. It is a market designed around what institutional participants need to know, what they should not be required to reveal and which risks they have actually agreed to take.</p>
+
+      <div class="closer">
+        <p>That's what institutional on-chain lending has been missing.</p>
+        <p>That's what Meridiant is.</p>
+      </div>
+
+      <div class="coda">
+        <p>Meridiant is isolated-market lending, engineered for Canton Network. Meridiant is live on Canton mainnet and invite-only today: the app hosts your Canton party and signing key, and self-custodial wallet signing is the next step. Read the <a class="src" href="https://docs.meridiant.xyz/" target="_blank" rel="noopener noreferrer">docs</a> for how the venue works.</p>
+      </div>
+
+      <div class="sources">
+        <span class="micro">Sources</span>
+        <ul>
+          <li>Canton Network, <a href="https://www.canton.network/canton-network-press-releases/canton-network-press-release" target="_blank" rel="noopener noreferrer">A Blockchain Financial Institutions Can Say "Yes" To</a></li>
+          <li>Canton Network, <a href="https://www.canton.network/dtcc-tokenization-service-on-canton" target="_blank" rel="noopener noreferrer">DTCC Tokenization Service on Canton</a></li>
+          <li>Aave Protocol Documentation, <a href="https://aave.com/docs/aave-v3/umbrella" target="_blank" rel="noopener noreferrer">Umbrella</a></li>
+          <li>Morpho Protocol Documentation, <a href="https://docs.morpho.org/learn/concepts/blue/" target="_blank" rel="noopener noreferrer">Morpho Blue</a></li>
+          <li>The Wall Street Journal, "Crypto Rushes to Bail Out Decentralized Lender Targeted by Hackers"</li>
+          <li>Meridiant Documentation, <a href="https://docs.meridiant.xyz/docs/how-it-works" target="_blank" rel="noopener noreferrer">How It Works</a>, <a href="https://docs.meridiant.xyz/docs/liquidation" target="_blank" rel="noopener noreferrer">Liquidation</a>, and <a href="https://docs.meridiant.xyz/docs/privacy-and-trust" target="_blank" rel="noopener noreferrer">Privacy and Trust</a></li>
+        </ul>
+      </div>
+
+      <div class="article-foot">
+        <a href="/blog/" class="btn btn-secondary">All posts</a>
+        <a href="https://x.com/meridiantxyz/status/2103114883839443191" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Discuss on X</a>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="brand" aria-label="Meridiant home">
+          <svg class="brand-mark" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <circle cx="11" cy="11" r="9.5"/>
+            <line x1="11" y1="1.5" x2="11" y2="20.5"/>
+            <path d="M2 11 A9.5 5 0 0 0 20 11"/>
+            <path d="M2 11 A9.5 5 0 0 1 20 11"/>
+          </svg>
+          Meridiant
+        </a>
+        <p>Isolated-market lending engineered for Canton Network. Position privacy by default, atomic composition, per-market risk isolation.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Product</h5>
+        <a href="https://app.meridiant.xyz" target="_blank" rel="noopener noreferrer">App</a>
+        <a href="https://docs.meridiant.xyz/" target="_blank" rel="noopener noreferrer">Documentation</a>
+        <a href="https://docs.meridiant.xyz/docs/getting-started" target="_blank" rel="noopener noreferrer">Getting started</a>
+      </div>
+      <div class="footer-col">
+        <h5>Network</h5>
+        <a href="https://www.canton.network/" target="_blank" rel="noopener noreferrer">Canton Network</a>
+        <a href="https://www.canton.network/global-synchronizer" target="_blank" rel="noopener noreferrer">Global Synchronizer</a>
+        <a href="https://docs.sync.global/" target="_blank" rel="noopener noreferrer">Canton Coin</a>
+      </div>
+      <div class="footer-col">
+        <h5>Community</h5>
+        <a href="/blog/">Blog</a>
+        <a href="https://x.com/meridiantxyz" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+        <a href="https://github.com/Meridiant-xyz" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/brand-guide">Brand guide</a>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <div class="footer-legal">
+        <p>Meridiant is a trade name of <span class="entity">CATALYST LABS L.L.C-FZ</span>.</p>
+        <p>Meydan Grandstand, 6th floor, Meydan Road, Dubai, U.A.E.</p>
+      </div>
+      <span class="footer-copy">© 2026 Catalyst Labs L.L.C-FZ · All rights reserved</span>
+    </div>
+  </div>
+</footer>
+<script src="/blog/blog.js"></script>
+</body>
+</html>
