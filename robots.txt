@@ -1,0 +1,6 @@
+# https://meridiant.xyz — marketing site for Meridiant, isolated-market lending on Canton Network.
+User-agent: *
+Allow: /
+
+Sitemap: https://meridiant.xyz/sitemap.xml
+Sitemap: https://docs.meridiant.xyz/sitemap.xml

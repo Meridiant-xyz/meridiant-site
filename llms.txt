@@ -1,0 +1,34 @@
+# Meridiant
+
+> Isolated-market lending engineered for Canton Network. Every market is its own contract — one collateral, one loan asset, one oracle, one interest-rate curve — so risk never cascades between markets. Positions are private by default, settlement is atomic, and collateral stays borrower-owned.
+
+Meridiant is live on Canton mainnet and invite-only today: the app hosts your Canton party and signing key, and self-custodial wallet signing is the next step.
+
+Meridiant is a trade name of Catalyst Labs L.L.C-FZ, Dubai, U.A.E.
+
+## Canonical pages
+
+- [Homepage](https://meridiant.xyz/): product overview, design principles, market anatomy, why Canton.
+- [App](https://app.meridiant.xyz/): the lending venue on Canton mainnet (invite-only).
+- [Docs](https://docs.meridiant.xyz/): high-level documentation, not a protocol specification.
+
+## Docs
+
+- [What is Meridiant](https://docs.meridiant.xyz/docs/intro): one-sentence definition, who it is for, what you can do.
+- [Why Canton](https://docs.meridiant.xyz/docs/why-canton): need-to-know privacy, atomic composition, sub-second finality, institutional participants.
+- [How it works](https://docs.meridiant.xyz/docs/how-it-works): the over-collateralized lending loop.
+- [Markets](https://docs.meridiant.xyz/docs/markets): what an isolated market is and how one is parameterized.
+- [Supplying](https://docs.meridiant.xyz/docs/supplying), [Borrowing](https://docs.meridiant.xyz/docs/borrowing), [Liquidation](https://docs.meridiant.xyz/docs/liquidation): user flows.
+- [Prices and rates](https://docs.meridiant.xyz/docs/prices-and-rates): oracle freshness and utilization-based interest.
+- [Privacy and trust](https://docs.meridiant.xyz/docs/privacy-and-trust): what the operator can and cannot do; how to read "non-custodial".
+- [Who's involved](https://docs.meridiant.xyz/docs/who-is-involved): suppliers, borrowers, liquidators, operator, oracle, issuers.
+- [What we are building](https://docs.meridiant.xyz/docs/what-we-are-building): current state and product path.
+- [Getting started](https://docs.meridiant.xyz/docs/getting-started): the invite-only access model.
+- [Glossary](https://docs.meridiant.xyz/docs/glossary)
+
+## Elsewhere
+
+- [X (Twitter)](https://x.com/meridiantxyz)
+- [GitHub](https://github.com/Meridiant-xyz)
+- [Brand guide](https://meridiant.xyz/brand-guide/)
+- [Canton Network](https://www.canton.network/)

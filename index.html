@@ -6,6 +6,61 @@
 <meta name="color-scheme" content="dark light">
 <title>Meridiant — Isolated-market lending on Canton</title>
 <meta name="description" content="Isolated-market lending engineered for Canton Network. Position privacy by default, atomic composition, per-market risk isolation.">
+<link rel="canonical" href="https://meridiant.xyz/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Meridiant">
+<meta property="og:title" content="Meridiant — Isolated-market lending on Canton">
+<meta property="og:description" content="Isolated-market lending engineered for Canton Network. Position privacy by default, atomic composition, per-market risk isolation.">
+<meta property="og:url" content="https://meridiant.xyz/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@meridiantxyz">
+<meta name="twitter:title" content="Meridiant — Isolated-market lending on Canton">
+<meta name="twitter:description" content="Isolated-market lending engineered for Canton Network. Position privacy by default, atomic composition, per-market risk isolation.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://meridiant.xyz/#organization",
+      "name": "Meridiant",
+      "legalName": "Catalyst Labs L.L.C-FZ",
+      "url": "https://meridiant.xyz/",
+      "logo": "https://meridiant.xyz/assets/favicon.svg",
+      "description": "Isolated-market lending engineered for Canton Network. Position privacy by default, atomic composition, per-market risk isolation.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Meydan Grandstand, 6th floor, Meydan Road",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE"
+      },
+      "sameAs": [
+        "https://x.com/meridiantxyz",
+        "https://github.com/Meridiant-xyz"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://meridiant.xyz/#website",
+      "url": "https://meridiant.xyz/",
+      "name": "Meridiant",
+      "publisher": { "@id": "https://meridiant.xyz/#organization" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://meridiant.xyz/#app",
+      "name": "Meridiant",
+      "url": "https://app.meridiant.xyz/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "description": "Isolated-market lending on Canton Network. Meridiant is live on Canton mainnet and invite-only today: the app hosts your Canton party and signing key, and self-custodial wallet signing is the next step.",
+      "publisher": { "@id": "https://meridiant.xyz/#organization" },
+      "softwareHelp": { "@type": "CreativeWork", "url": "https://docs.meridiant.xyz/docs/intro" }
+    }
+  ]
+}
+</script>
 <script>
   (function() {
     try {
@@ -396,6 +451,21 @@
     box-shadow: 0 0 10px var(--signal);
     animation: pulse 2s ease-in-out infinite;
   }
+  .access-note {
+    margin: 20px 0 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-3);
+    max-width: 52ch;
+  }
+  .src {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+  .src:hover { text-decoration-color: var(--signal); color: var(--text); }
   .hero-meta {
     margin-top: 56px;
     display: grid;
@@ -691,7 +761,7 @@
   }
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.6fr repeat(4, 1fr);
+    grid-template-columns: 1.6fr repeat(3, 1fr);
     gap: 48px;
     padding-bottom: 64px;
     border-bottom: 1px solid var(--line);
@@ -805,7 +875,7 @@
 <!-- ---------- Nav ---------- -->
 <nav class="top" aria-label="Primary">
   <div class="wrap">
-    <a href="#" class="brand" aria-label="Meridiant home">
+    <a href="/" class="brand" aria-label="Meridiant home">
       <svg class="brand-mark" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
         <circle cx="11" cy="11" r="9.5"/>
         <line x1="11" y1="1.5" x2="11" y2="20.5"/>
@@ -838,7 +908,7 @@
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="eyebrow"><span class="dot"></span>Building on Canton Network</div>
+        <div class="eyebrow"><span class="dot"></span>Live on Canton mainnet</div>
         <h1 class="headline">Isolated-market lending, engineered for <em class="accent">Canton</em>.</h1>
         <p class="sub">Every market is a contract of its own — one collateral, one loan asset, one oracle. Native atomic settlement. Position privacy by default. <span class="highlight">Built for institutions.</span></p>
         <div class="hero-ctas">
@@ -850,6 +920,7 @@
             Read the docs
           </a>
         </div>
+        <p class="access-note">Meridiant is live on Canton mainnet and invite-only today: the app hosts your Canton party and signing key, and self-custodial wallet signing is the next step.</p>
         <div class="hero-meta">
           <div>
             <span class="micro k">Ledger</span>
@@ -1062,7 +1133,7 @@
 
     <div class="canton-intro" style="margin-top: 64px;">
       <h2>Credit rails, not <em class="accent">a casino floor</em>.</h2>
-      <p>Canton is the settlement layer for over $6 trillion in tokenized assets and $280 billion in daily repo. It ships privacy, atomicity, and sub-second finality out of the box. Meridiant is designed to inherit all three.</p>
+      <p>Canton is the settlement layer for over <a class="src" href="https://decrypt.co/348256/franklin-templeton-tokenized-fund-platform-canton-network" target="_blank" rel="noopener noreferrer">$6 trillion in tokenized assets</a> and <a class="src" href="https://www.broadridge.com/press-release/2025/billions-in-average-daily-processed-trade-volumes-on-broadridge-dlt-repo-platform" target="_blank" rel="noopener noreferrer">$280 billion in daily repo</a>. It ships privacy, atomicity, and sub-second finality out of the box. Meridiant is designed to inherit all three.</p>
     </div>
 
     <div class="pillars">
@@ -1075,8 +1146,8 @@
       <div class="pillar">
         <span class="pillar-num">§ 03·B</span>
         <h3 class="pillar-title">Institutional participants</h3>
-        <span class="pillar-stat">45+<span class="unit"> SVs</span></span>
-        <p class="pillar-body">DTCC, Goldman Sachs, JPMorgan Kinexys, Visa, Tradeweb, Cumberland, and dozens more. Markets can require KYB'd counterparties by default — a first-class primitive, not a bolt-on.</p>
+        <span class="pillar-stat">60+<span class="unit"> SVs</span></span>
+        <p class="pillar-body">DTCC, Goldman Sachs, JPMorgan Kinexys, Visa, Tradeweb, Cumberland, and dozens more — see the <a class="src" href="https://canton.foundation/about-the-foundation/#super-validators" target="_blank" rel="noopener noreferrer">Canton Foundation super validator list</a>. Markets can require KYB'd counterparties by default — a first-class primitive, not a bolt-on.</p>
       </div>
       <div class="pillar">
         <span class="pillar-num">§ 03·C</span>
@@ -1103,7 +1174,7 @@
         Docs
         <svg class="btn-arrow" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
       </a>
-      <a href="#" class="btn btn-secondary">GitHub</a>
+      <a href="https://github.com/Meridiant-xyz" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
   </div>
 </section>
@@ -1113,7 +1184,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" class="brand" aria-label="Meridiant home">
+        <a href="/" class="brand" aria-label="Meridiant home">
           <svg class="brand-mark" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
             <circle cx="11" cy="11" r="9.5"/>
             <line x1="11" y1="1.5" x2="11" y2="20.5"/>
@@ -1126,28 +1197,21 @@
       </div>
       <div class="footer-col">
         <h5>Product</h5>
-        <a href="#">Markets</a>
+        <a href="https://app.meridiant.xyz" target="_blank" rel="noopener noreferrer">App</a>
         <a href="https://docs.meridiant.xyz/" target="_blank" rel="noopener noreferrer">Documentation</a>
-        <a href="https://docs.meridiant.xyz/" target="_blank" rel="noopener noreferrer">Whitepaper</a>
-        <a href="#">Audits</a>
+        <a href="https://docs.meridiant.xyz/docs/getting-started" target="_blank" rel="noopener noreferrer">Getting started</a>
       </div>
       <div class="footer-col">
         <h5>Network</h5>
-        <a href="#">Canton Network</a>
-        <a href="#">Global Synchronizer</a>
-        <a href="#">Canton Coin</a>
+        <a href="https://www.canton.network/" target="_blank" rel="noopener noreferrer">Canton Network</a>
+        <a href="https://www.canton.network/global-synchronizer" target="_blank" rel="noopener noreferrer">Global Synchronizer</a>
+        <a href="https://docs.sync.global/" target="_blank" rel="noopener noreferrer">Canton Coin</a>
       </div>
       <div class="footer-col">
-        <h5>Resources</h5>
-        <a href="https://x.com/meridiantxyz" target="_blank" rel="noopener noreferrer">Twitter</a>
-        <a href="#">Blog</a>
-        <a href="#">Brand</a>
-      </div>
-      <div class="footer-col">
-        <h5>Legal</h5>
-        <a href="#">Terms</a>
-        <a href="#">Privacy</a>
-        <a href="#">Disclosures</a>
+        <h5>Community</h5>
+        <a href="https://x.com/meridiantxyz" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+        <a href="https://github.com/Meridiant-xyz" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="/brand-guide">Brand guide</a>
       </div>
     </div>
     <div class="footer-meta">
