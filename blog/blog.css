@@ -237,6 +237,25 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 }
 .post-item .more:hover { color: var(--signal-hover); }
 
+/* ---------- Banner + thumbnails ---------- */
+.article .banner {
+  margin: 0 0 56px;
+  border: 1px solid var(--line);
+  background: #0A0B0D;
+  overflow: hidden;
+}
+.article .banner img { display: block; width: 100%; height: auto; }
+.post-thumb {
+  display: block;
+  margin: 0 0 24px;
+  border: 1px solid var(--line);
+  background: #0A0B0D;
+  overflow: hidden;
+  max-width: 720px;
+}
+.post-thumb img { display: block; width: 100%; height: auto; transition: opacity 150ms ease; }
+.post-thumb:hover img { opacity: 0.9; }
+
 /* ---------- Article ---------- */
 .article-head { padding: 96px 0 48px; border-bottom: 1px solid var(--line); }
 .article-head h1 {
@@ -411,6 +430,7 @@ footer { padding: 80px 0 48px; border-top: 1px solid var(--line); }
   .post-item h2 { font-size: 24px; }
   .article p, .article li { font-size: 17px; }
   .article p.lede { font-size: 19px; }
+  .article .banner { margin-bottom: 40px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .footer-meta { align-items: flex-start; flex-direction: column; gap: 20px; }
   .nav-links { display: none; }
