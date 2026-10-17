@@ -4,10 +4,6 @@ Meridiant is an isolated-market, over-collateralised lending protocol on Canton 
 (https://meridiant.xyz, docs https://docs.meridiant.xyz). This API exposes market, oracle,
 liquidation and quote data for AI, trading and research agents, pay-per-call over x402.
 
-DATA MODE: simulated. Realistic sample data with final response shapes, NOT live protocol
-state. Every paid response carries data_mode="simulated" until real reads land. Check
-catalog.data_mode before relying on the numbers.
-
 Base URL:        https://x402.meridiant.xyz
 Catalog (free):  https://x402.meridiant.xyz/v1/catalog   (routes, price, instrument, pay_to)
 Health (free):   https://x402.meridiant.xyz/v1/health
