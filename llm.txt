@@ -1,0 +1,38 @@
+# Meridiant x402 data API (Canton MainNet)
+
+Meridiant is an isolated-market, over-collateralised lending protocol on Canton Network
+(https://meridiant.xyz, docs https://docs.meridiant.xyz). This API exposes market, oracle,
+liquidation and quote data for AI, trading and research agents, pay-per-call over x402.
+
+DATA MODE: simulated. Realistic sample data with final response shapes, NOT live protocol
+state. Every paid response carries data_mode="simulated" until real reads land. Check
+catalog.data_mode before relying on the numbers.
+
+Base URL:        https://x402.meridiant.xyz
+Catalog (free):  https://x402.meridiant.xyz/v1/catalog   (routes, price, instrument, pay_to)
+Health (free):   https://x402.meridiant.xyz/v1/health
+Live copy:       https://x402.meridiant.xyz/llm.txt      (always current; prefer it over this mirror)
+
+Payment: x402 v2, scheme "exact", network canton:mainnet, asset USDCx
+         (instrument admin decentralized-usdc-interchain-rep::1220...; id USDCx),
+         0.01 USDCx per call (atomic "100000000", 1 unit = 10^10), settled through the
+         FTP facilitator https://facilitator.ftptech.xyz. Unpaid requests get HTTP 402
+         with a PAYMENT-REQUIRED header; retry with PAYMENT-SIGNATURE (~8-10 KB header).
+
+Endpoints (0.01 USDCx each):
+GET  /v1/markets                          markets: supply_apy, borrow_apr, utilisation, liquidity, irm, ltv/bonus, oracle price
+GET  /v1/markets/{id}                     one market  (ids: cbtc-cc, ceth-usdcx, cbtc-usdcx, cc-usdcx)
+GET  /v1/markets/{id}/rates/history       hourly history, ?hours=1..168 (default 24)
+GET  /v1/oracle/prices                    oracle prices with ts, age_s, status fresh|stale
+GET  /v1/liquidations/candidates          anonymised positions, ?max_health=1.05, sorted by health_factor asc
+POST /v1/quote/borrow                     body {"market":"cbtc-cc","collateral_amount":0.5} -> max_borrow, borrow_apr, liquidation_price
+GET  /v1/stats                            protocol totals and 24h activity
+
+How to pay (FTP agent wallet):
+  npm i -g @ftptech/canton-agent-wallet
+  export CANTON_AGENT_NETWORK=canton:mainnet CANTON_AGENT_RELAY_URL=https://facilitator.ftptech.xyz
+  export CANTON_AGENT_PAYABLE_INSTRUMENTS="decentralized-usdc-interchain-rep::12208115f1e168dd7e792320be9c4ca720c751a02a3053c7606e1c1cd3dad9bf60ef|USDCx"
+  canton-agent-wallet pay https://x402.meridiant.xyz/v1/markets
+  (or makePayingFetch from the SDK; merchant docs https://ftp-tech.mintlify.site/x402-merchant)
+
+Contact: founders@promorphic.xyz

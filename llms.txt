@@ -32,6 +32,10 @@ Meridiant is a trade name of Catalyst Labs L.L.C-FZ, Dubai, U.A.E.
 - [What Institutional On-Chain Lending Has Been Missing: Privacy with Isolation](https://meridiant.xyz/blog/privacy-with-isolation/): why institutional credit needs selective disclosure, market-level isolation and atomic settlement from the same infrastructure (24 September 2026).
 - [RSS feed](https://meridiant.xyz/blog/feed.xml)
 
+## Agent data API (x402)
+
+- [x402 data API](https://x402.meridiant.xyz/v1/catalog): pay-per-call market, oracle, liquidation and quote data for agents, 0.01 USDCx per call over x402 on Canton MainNet. Simulated data for now (see `data_mode`). Discovery file: [llm.txt](https://meridiant.xyz/llm.txt).
+
 ## Elsewhere
 
 - [X (Twitter)](https://x.com/meridiantxyz)
