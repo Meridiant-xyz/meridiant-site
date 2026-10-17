@@ -11,9 +11,9 @@ Live copy:       https://x402.meridiant.xyz/llm.txt      (always current; prefer
 
 Payment: x402 v2, scheme "exact", network canton:mainnet, about US$0.01 per call, settled
          through the FTP facilitator https://facilitator.ftptech.xyz. Accepted assets and the
-         exact atomic price per asset are in the catalog (payment.price_per_call); today USDCx
-         0.01 per call (atomic "100000000", 1 unit = 10^10), with USDXLR, cETH and CBTC to
-         follow. Unpaid requests get HTTP 402 with a PAYMENT-REQUIRED header; retry with
+         exact atomic price per asset are in the catalog (payment.price_per_call): USDCx 0.01,
+         USDXLR 0.01, cETH 0.0000025, CBTC 0.0000001 or Canton Coin 0.1 per call (atomic
+         strings, 1 unit = 10^10). Unpaid requests get HTTP 402 with a PAYMENT-REQUIRED header; retry with
          PAYMENT-SIGNATURE (~8-10 KB header).
 
 Endpoints (one price per call, any accepted asset):
